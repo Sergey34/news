@@ -58,36 +58,28 @@
         </div>
         <div class="col-md-9">
             <div class="row">
-                <div class="col-sm-12 col-lg-12 col-md-12">
-                    <!--<div class="col-sm-6 col-lg-6 col-md-6">-->
+                <div class="col-sm-4 col-lg-4 col-md-4" th:each="news : ${newsList}">
                     <div class="thumbnail">
                         <div class="caption">
                             <h1 th:text="${news.title}">Title</h1>
                         </div>
                         <div class="caption">
                             <p class="lead" th:text="${news.anons}">anons</p>
-                            <p th:text="${news.text}">text</p>
+                        </div>
+                        <div class="caption">
+                            <h4 class="pull-right" th:text="${news.autor}">autor</h4>
+                        </div>
+                        <div class="ratings">
+                            <label th:text="${#dates.format(news.date)}">date</label>
                         </div>
                     </div>
-                    <div class="caption">
-                        <h4 class="pull-right" th:text="${news.autor}">autor</h4>
-                    </div>
-                    <div class="ratings">
-                        <table>
-                            <tr th:each="emp,iterationStatus  : ${news.heading}">
-                                <a th:text="${emp.name}">Name</a> &nbsp
-                            </tr>
-                        </table>
-                        <p class="pull-right" th:text="${#dates.format(date)}">date</p>
-                        <p th:></p>
-                    </div>
-                    <!--</div>-->
-
-
                 </div>
+
+
             </div>
         </div>
     </div>
+</div>
 </div>
 
 <!-- /.container -->

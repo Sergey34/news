@@ -25,10 +25,10 @@ public class ControllerNews {
         return "news";
     }
     @RequestMapping("/{heading}")
-    public String getNews(@PathVariable("heading") String heading, Map<String, Object> model) {
+    public String getNewsByHeading(@PathVariable("heading") String heading, Map<String, Object> model) {
         List<News> news = service.findByHeadingName(heading);
         Iterable<Menu> headings = service.findHeadings();
-        model.put("news", news);
+        model.put("newsList", news);
         model.put("menu", headings);
         return "newsList";
     }

@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>User</title>
+    <title>News List</title>
     <!-- Bootstrap Core CSS -->
     <link href="/css/bootstrap.min.css" rel="stylesheet"/>
     <!-- Custom CSS -->
@@ -32,7 +32,6 @@
             </button>
             <a class="navbar-brand" href="/">News</a>
         </div>
-
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav" id="navbar-nav">
@@ -45,17 +44,17 @@
 </nav>
 <!-- Page Content -->
 
-
 <div class="container">
     <div class="row">
         <div class="col-md-3" id="list_menu">
             <p class="lead">Навигация</p>
             <div class="list-group">
                 <a class="list-group-item" href="/adminka/addNews">Добавить новость</a>
-                <form action="/qwe.html">
+                <a class="list-group-item" href="/adminka">Админка</a>
+                <form action="/date" method="post">
                     <div>
                         <div class="input-group">
-                            <input id="inputDate" type="date" class="form-control">
+                            <input id="date" name="date" type="date" class="form-control">
                             <span class="input-group-btn">
         							<button class="btn btn-default" type="submit">Go!</button>
       							</span>
@@ -67,41 +66,40 @@
             <p class="lead">Рубрики</p>
             <div class="list-group">
                 <a class="list-group-item" th:each="menu_item : ${menu}" th:href="${'/heading/'+menu_item.url}"
-                   th:text="${emp.name}">рубрика</a>
+                   th:text="${menu_item.name}">рубрика</a>
 
             </div>
         </div>
         <div class="col-md-9">
-            <div class="row">
-                <div class="col-sm-12 col-lg-12 col-md-12">
-                    <div class="thumbnail">
-                        <div class="caption">
-                            <h1 th:text="${news.title}">Title</h1>
-                        </div>
-                        <div class="caption">
-                            <p class="lead" th:text="${news.anons}">anons</p>
-                            <p th:text="${news.text}">text</p>
-                        </div>
-
-
-                        <div class="caption">
-                            <a th:href="${'/user/' + news.author}"><h4 class="pull-right" th:text="${news.author}">
-                                author</h4></a>
-                            <h4><label th:text="${#dates.format(news.date)}">date</label>
-                            </h4>
-                            <table>
-                                <tr th:each="hdng  : ${news.heading}">
-                                    <a th:text="${hdng.name}">Name</a> &nbsp
-                                </tr>
-                            </table>
-                        </div>
-
-                    </div>
+            <form>
+                <div class="form-group">
+                    <label for="TitleNews">Заголовок новости</label>
+                    <input type="text" class="form-control" id="TitleNews">
                 </div>
-            </div>
+                <div class="form-group">
+                    <label for="anons">Анонс</label>
+                    <textarea class="form-control" maxlength="250" id="anons" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="exampleSelect2">Рубрики</label>
+                    <select multiple class="form-control" id="exampleSelect2">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="text">Текст новости</label>
+                    <textarea class="form-control" id="text" rows="10"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
         </div>
     </div>
 </div>
+
 
 <!-- /.container -->
 <div class="container">

@@ -51,14 +51,14 @@
             <div class="list-group">
                 <a class="list-group-item" href="/adminka/addNews">Добавить новость</a>
                 </p>
-                <k th:each="emp : ${menu}">
-                    <a class="list-group-item" th:href="${emp.url}" th:text="${emp.name}">рубрика</a>
-                </k>
+
+                <a class="list-group-item" th:each="emp : ${menu}" th:href="${emp.url}"
+                   th:text="${emp.name}">рубрика</a>
             </div>
         </div>
         <div class="col-md-9">
             <div class="row">
-                <div class="col-sm-4 col-lg-4 col-md-4" th:each="news : ${newsList}">
+                <div class="col-sm-6 col-lg-6 col-md-6" th:each="news : ${newsList}">
                     <div class="thumbnail">
                         <div class="caption">
                             <h1 th:text="${news.title}">Title</h1>
@@ -67,10 +67,9 @@
                             <p class="lead" th:text="${news.anons}">anons</p>
                         </div>
                         <div class="caption">
-                            <h4 class="pull-right" th:text="${news.autor}">autor</h4>
-                        </div>
-                        <div class="ratings">
-                            <label th:text="${#dates.format(news.date)}">date</label>
+                            <h4 class="pull-right" th:text="${news.autor.login}">autor</h4>
+                            <h4><label th:text="${#dates.format(news.date)}">date</label>
+                            </h4>
                         </div>
                     </div>
                 </div>

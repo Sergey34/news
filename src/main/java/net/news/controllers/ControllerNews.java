@@ -1,6 +1,6 @@
 package net.news.controllers;
 
-import net.news.domain.News;
+import net.news.domain.news.News;
 import net.news.dto.Menu;
 import net.news.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;

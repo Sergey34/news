@@ -1,10 +1,11 @@
-package net.news.domain;
+package net.news.domain.news;
 
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.news.domain.users.User;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -32,7 +33,8 @@ public class News {
     private Date date;
     @Column(length = 50*2)
     private String title;
-    private String autor;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private User autor;
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Heading> heading;
     @Column(length = 250*2)

@@ -1,27 +1,22 @@
-package net.news.domain;
+package net.news.domain.users;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-/**
- * рубрика
- */
-@Entity
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class Heading {
+@Entity
+public class Role {
     @Id
     @GeneratedValue
-    private long id;
-    @Column(unique = true)
-    private String name;
+    private int id;
+    private String roleName;
 }

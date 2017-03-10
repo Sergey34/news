@@ -1,6 +1,6 @@
 package net.news.service;
 
-import net.news.domain.Heading;
+import net.news.domain.news.Heading;
 import net.news.dto.Menu;
 import org.springframework.stereotype.Component;
 

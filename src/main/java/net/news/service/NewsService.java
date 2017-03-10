@@ -97,4 +97,8 @@ public class NewsService {
     public int getCountPageFindByHeadingName(String heading) {
         return calculateCountPages(dao.countByHeading_name(heading));
     }
+
+    public void saveNews(String title, String anons, String text, List<String> headingNameList) {
+
+    }
 }

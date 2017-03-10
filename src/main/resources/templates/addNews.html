@@ -69,25 +69,26 @@
             </div>
         </div>
         <div class="col-md-9">
-            <form action="/addNews" method="post">
+            <form th:action="@{/addNews}" method="post">
                 <div class="form-group">
                     <label for="TitleNews">Заголовок новости</label>
-                    <input type="text" class="form-control" minlength="5" id="TitleNews">
+                    <input name="title" type="text" class="form-control" minlength="5" id="TitleNews">
                 </div>
                 <div class="form-group">
                     <label for="anons">Анонс</label>
-                    <textarea class="form-control" maxlength="250" minlength="20" id="anons" rows="3"></textarea>
+                    <textarea name="anons" class="form-control" maxlength="250" minlength="20" id="anons"
+                              rows="3"></textarea>
                 </div>
                 <div class="form-group">
                     <label for="exampleSelect2">Рубрики</label>
-                    <select multiple class="form-control" id="exampleSelect2">
+                    <select name="headings" multiple class="form-control" id="exampleSelect2">
                         <option th:each="menu_item : ${menu}" th:text="${menu_item.name}">1</option>
 
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="text">Текст новости</label>
-                    <textarea class="form-control" id="text" rows="10"></textarea>
+                    <textarea name="text" class="form-control" id="text" rows="10"></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>

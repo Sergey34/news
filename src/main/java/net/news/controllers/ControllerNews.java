@@ -35,6 +35,7 @@ public class ControllerNews {
                           @RequestParam("text") String text,
                           @RequestParam("headings") List<String> headingNameList,
                           Map<String, Object> model) {
+        service.saveNews(title, anons, text, headingNameList);
         Iterable<Menu> headings = service.findHeadings();
         model.put("menu", headings);
         return "addNews";

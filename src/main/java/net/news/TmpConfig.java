@@ -1,9 +1,9 @@
 package net.news;
 
-import net.news.dao.HeadingDao;
-import net.news.dao.NewsDao;
-import net.news.dao.RoleDao;
-import net.news.dao.UserDao;
+import net.news.dao.DaoHeading;
+import net.news.dao.DaoNews;
+import net.news.dao.DaoRole;
+import net.news.dao.DaoUser;
 import net.news.domain.news.Heading;
 import net.news.domain.news.News;
 import net.news.domain.users.Role;
@@ -25,17 +25,17 @@ public class TmpConfig {
         roles.put("USER", Role.builder().authority("USER").build());
     }
 
-    private final UserDao userDao;
-    private final RoleDao roleDao;
-    private final NewsDao dao;
-    private final HeadingDao headingDao;
+    private final DaoUser daoUser;
+    private final DaoRole daoRole;
+    private final DaoNews dao;
+    private final DaoHeading daoHeading;
 
     @Autowired
-    public TmpConfig(UserDao userDao, RoleDao roleDao, NewsDao dao, HeadingDao headingDao) {
-        this.userDao = userDao;
-        this.roleDao = roleDao;
+    public TmpConfig(DaoUser daoUser, DaoRole daoRole, DaoNews dao, DaoHeading daoHeading) {
+        this.daoUser = daoUser;
+        this.daoRole = daoRole;
         this.dao = dao;
-        this.headingDao = headingDao;
+        this.daoHeading = daoHeading;
     }
 
 
@@ -47,27 +47,27 @@ public class TmpConfig {
     }
 
     private void initUsers() {
-        roleDao.save(roles.values());
+        daoRole.save(roles.values());
         User sergey = User.builder().name("sergey")
                 .email("sergey@mail.com")
                 .login("seko")
                 .password(new BCryptPasswordEncoder().encode("pass"))
                 .roles(new HashSet<>(roles.values())).build();
-        userDao.save(sergey);
+        daoUser.save(sergey);
         User admin = User.builder().name("admin")
                 .email("admin@mail.com")
                 .login("admin")
                 .password(new BCryptPasswordEncoder().encode("admin"))
                 .roles(new HashSet<>(roles.values())).build();
-        userDao.save(admin);
+        daoUser.save(admin);
         User user = User.builder().name("user")
                 .email("user@mail.com")
                 .login("user")
                 .password(new BCryptPasswordEncoder().encode("user"))
                 .roles(new HashSet<>(Arrays.asList(roles.get("USER")))).build();
-        userDao.save(user);
+        daoUser.save(user);
 
-        Iterable<User> all = userDao.findAll();
+        Iterable<User> all = daoUser.findAll();
         System.out.println(all);
     }
 
@@ -75,7 +75,7 @@ public class TmpConfig {
         Heading heading = Heading.builder().name("blaРубрика").build();
         Heading heading2 = Heading.builder().name("blaРубрика2").build();
         List<Heading> headings = Arrays.asList(heading, heading2);
-        headingDao.save(headings);
+        daoHeading.save(headings);
         String anons = "Группа «Самое Большое Простое Число» выпустила новый мини-альбом — «Выброшу голову — пусть думает сердце!».\n" +
                 "\n" +
                 "Наш паблик стал первым местом в России, где его можно послушать бесплатно и легально. \n" +
@@ -85,7 +85,7 @@ public class TmpConfig {
                 "blaTitlebla TitleblaTitleblaTitl eblaTitleblaTitlebla TitleblaTitleblaTitle blaTitleblaTitleblaTitleblaTi tleblaTitleblaTitleblaTi tleblaTitleblaTitleblaTitle blaTitleblaTitleblaTitleblaTitleblaTitleblaTitleblaTitle blaTitleblaTitleblaTi tleblaTitleblaTitleb laTitleblaTitlebla TitleblaTitleblaTitleb laTitleblaTitleblaTitl eblaTitleblaTitleblaTit lebla";
         News news = News.builder()
                 .anons(anons)
-                .author(userDao.findOneByLogin("user"))
+                .author(daoUser.findOneByLogin("user"))
                 .date(new Date())
                 .title("TitleBla")
                 .text(text)
@@ -93,7 +93,7 @@ public class TmpConfig {
         dao.save(news);
         News news2 = News.builder()
                 .anons("bla2")
-                .author(userDao.findOneByLogin("seko"))
+                .author(daoUser.findOneByLogin("seko"))
                 .date(new Date())
                 .title("blaTitle2")
                 .text("blablablabla2")

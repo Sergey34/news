@@ -1,6 +1,6 @@
 package net.news.service;
 
-import net.news.dao.UserDao;
+import net.news.dao.DaoUser;
 import net.news.domain.users.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,16 +10,16 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserDetailServiceImpl implements UserDetailsService {
-    private final UserDao userDao;
+    private final DaoUser daoUser;
 
     @Autowired
-    public UserDetailServiceImpl(UserDao userDao) {
-        this.userDao = userDao;
+    public UserDetailServiceImpl(DaoUser daoUser) {
+        this.daoUser = daoUser;
     }
 
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-        User user = userDao.findOneByLogin(login);
+        User user = daoUser.findOneByLogin(login);
         if (user == null) {
             throw new UsernameNotFoundException("User Not Founded");
         }

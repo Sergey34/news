@@ -1,11 +1,12 @@
 package net.news.service;
 
 import lombok.extern.slf4j.Slf4j;
-import net.news.dao.HeadingDao;
-import net.news.dao.NewsDao;
+import net.news.dao.DaoHeading;
+import net.news.dao.DaoNews;
 import net.news.domain.news.News;
 import net.news.dto.Menu;
 import net.news.dto.NewsDto;
+import net.news.service.converters.ConverterNews;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
@@ -21,17 +22,17 @@ import java.util.List;
 @Service
 @Slf4j
 public class NewsService {
-    private final NewsDao dao;
-    private final HeadingDao headingDao;
+    private final DaoNews dao;
+    private final DaoHeading daoHeading;
     private final ConverterNews converterNews;
     private final ApplicationContext context;
     @Value("${cursor.size}")
     private int size;
 
     @Autowired
-    public NewsService(NewsDao dao, HeadingDao headingDao, ConverterNews converterNews, ApplicationContext context) {
+    public NewsService(DaoNews dao, DaoHeading daoHeading, ConverterNews converterNews, ApplicationContext context) {
         this.dao = dao;
-        this.headingDao = headingDao;
+        this.daoHeading = daoHeading;
         this.converterNews = converterNews;
         this.context = context;
     }
@@ -42,7 +43,7 @@ public class NewsService {
     }
 
     public List<Menu> findHeadings() {
-        return converterNews.headingsToMenu(headingDao.findAll());
+        return converterNews.headingsToMenu(daoHeading.findAll());
     }
 
     public List<NewsDto> findByHeadingName(String name, int page) {

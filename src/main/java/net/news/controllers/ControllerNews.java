@@ -26,7 +26,7 @@ public class ControllerNews {
     public String getNews(Map<String, Object> model) {
         Iterable<Menu> headings = service.findHeadings();
         model.put("menu", headings);
-        return "user";
+        return "addNews";
     }
 
     @RequestMapping("/news/{id}")

@@ -5,7 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface HeadingDao extends CrudRepository<Heading, Long> {
+public interface DaoHeading extends CrudRepository<Heading, Long> {
     @Override
     List<Heading> findAll();
 }

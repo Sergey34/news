@@ -11,7 +11,7 @@ import java.util.List;
 
 @Repository
 @Transactional
-public interface NewsDao extends CrudRepository<News, Long> {
+public interface DaoNews extends CrudRepository<News, Long> {
 
     List<News> findByHeading_name(String name, Pageable pageable);
 

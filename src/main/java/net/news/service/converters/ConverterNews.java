@@ -1,4 +1,4 @@
-package net.news.service;
+package net.news.service.converters;
 
 import net.news.domain.news.Heading;
 import net.news.domain.news.News;

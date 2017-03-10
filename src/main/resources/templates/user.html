@@ -52,8 +52,20 @@
             <p class="lead">Навигация</p>
             <div class="list-group">
                 <a class="list-group-item" href="/adminka/addNews">Добавить новость</a>
+                <form action="/qwe.html">
+                    <div>
+                        <div class="input-group">
+                            <input id="inputDate" type="date" class="form-control">
+                            <span class="input-group-btn">
+        							<button class="btn btn-default" type="submit">Go!</button>
+      							</span>
+                        </div>
+                    </div>
+                </form>
                 </p>
-
+            </div>
+            <p class="lead">Рубрики</p>
+            <div class="list-group">
                 <a class="list-group-item" th:each="emp : ${menu}" th:href="${emp.url}"
                    th:text="${emp.name}">рубрика</a>
 
@@ -78,8 +90,8 @@
                             <h4><label th:text="${#dates.format(news.date)}">date</label>
                             </h4>
                             <table>
-                                <tr th:each="emp,iterationStatus  : ${news.heading}">
-                                    <a th:text="${emp.name}">Name</a> &nbsp
+                                <tr th:each="hdng  : ${news.heading}">
+                                    <a th:text="${hdng.name}">Name</a> &nbsp
                                 </tr>
                             </table>
                         </div>

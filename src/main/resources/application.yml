@@ -25,4 +25,5 @@ security:
     name: admin
     password: admin
     role: ADMIN
-
+cursor:
+  size: 10

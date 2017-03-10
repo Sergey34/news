@@ -34,9 +34,11 @@ public class ControllerNews {
         return "news";
     }
 
-    @RequestMapping("/{heading}")
-    public String getNewsByHeading(@PathVariable("heading") String heading, Map<String, Object> model) {
-        List<NewsDto> news = service.findByHeadingName(heading);
+    @RequestMapping({"/heading/{heading}/{page}", "/heading/{heading}"})
+    public String getNewsByHeading(@PathVariable(value = "heading") String heading,
+                                   @PathVariable(value = "page", required = false) Integer page,
+                                   Map<String, Object> model) {
+        List<NewsDto> news = service.findByHeadingName(heading, page == null ? 0 : page);
         Iterable<Menu> headings = service.findHeadings();
         model.put("newsList", news);
         model.put("menu", headings);
@@ -44,9 +46,11 @@ public class ControllerNews {
         return "newsList";
     }
 
-    @RequestMapping("/author/{login}")
-    public String getNewsByAuthor(@PathVariable("login") String login, Map<String, Object> model) {
-        List<NewsDto> news = service.findByAuthor(login);
+    @RequestMapping({"/author/{login}/{page}", "/author/{login}"})
+    public String getNewsByAuthor(@PathVariable("login") String login,
+                                  @PathVariable(value = "page", required = false) Integer page,
+                                  Map<String, Object> model) {
+        List<NewsDto> news = service.findByAuthor(login, page == null ? 0 : page);
         Iterable<Menu> headings = service.findHeadings();
         model.put("newsList", news);
         model.put("menu", headings);
@@ -55,10 +59,15 @@ public class ControllerNews {
     }
 
 
-    @RequestMapping(value = "/date", method = RequestMethod.POST)
-    public String getNewsByDate(@RequestParam("date") String dateStr, Map<String, Object> model) {
-        service.findByDate(dateStr);
-
+    @RequestMapping(value = {"/date/{page}", "/date"}, method = RequestMethod.POST)
+    public String getNewsByDate(@RequestParam("date") String dateStr,
+                                @PathVariable(value = "page", required = false) Integer page,
+                                Map<String, Object> model) {
+        List<NewsDto> news = service.findByDate(dateStr, page == null ? 0 : page);
+        Iterable<Menu> headings = service.findHeadings();
+        model.put("newsList", news);
+        model.put("menu", headings);
+        model.put("date", dateStr);
         return "newsList";
 
     }

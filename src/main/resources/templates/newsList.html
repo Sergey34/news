@@ -64,7 +64,7 @@
             </div>
             <p class="lead">Рубрики</p>
             <div class="list-group">
-                <a class="list-group-item" th:each="menu_item : ${menu}" th:href="${menu_item.url}"
+                <a class="list-group-item" th:each="menu_item : ${menu}" th:href="${'/heading/'+menu_item.url + '/0'}"
                    th:text="${menu_item.name}">рубрика</a>
 
             </div>
@@ -75,13 +75,14 @@
                     <h4 th:if="${user!=null}" th:text="${'Новости созданные пользователем '+ user}">Новости созданные
                         пользователем</h4>
                     <h4 th:if="${heading!=null}" th:text="${'Новости из рубрики '+ heading}">Новости из рубрики</h4>
+                    <h4 th:if="${date!=null}" th:text="${'Новости за '+ date}">Новости за </h4>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-6 col-lg-6 col-md-6" th:each="news : ${newsList}">
                     <div class="thumbnail">
                         <div class="caption">
-                            <h1 th:text="${news.title}">Title</h1>
+                            <a th:href="${'/news/'+news.id}"><h1 th:text="${news.title}">Title</h1></a>
                         </div>
                         <div class="caption">
                             <p class="lead" th:text="${news.anons}">anons</p>
@@ -94,9 +95,14 @@
                         </div>
                     </div>
                 </div>
-
-
             </div>
+
+            <ul class="pagination">
+                <li class="disabled"><a href="#">&laquo;</a></li>
+                <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                <li class=""><a href="#">2 <span class="sr-only">(current)</span></a></li>
+                <li class="disabled"><a href="#">&raquo;</a></li>
+            </ul>
         </div>
     </div>
 </div>

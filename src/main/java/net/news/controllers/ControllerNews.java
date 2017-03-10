@@ -3,7 +3,6 @@ package net.news.controllers;
 import net.news.dto.Menu;
 import net.news.dto.NewsDto;
 import net.news.service.NewsService;
-import net.news.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,12 +16,10 @@ import java.util.Map;
 @Controller
 public class ControllerNews {
     private final NewsService service;
-    private final UserService userService;
 
     @Autowired
-    public ControllerNews(NewsService service, UserService userService) {
+    public ControllerNews(NewsService service) {
         this.service = service;
-        this.userService = userService;
     }
 
     @RequestMapping("/news/{id}")
@@ -38,11 +35,16 @@ public class ControllerNews {
     public String getNewsByHeading(@PathVariable(value = "heading") String heading,
                                    @PathVariable(value = "page", required = false) Integer page,
                                    Map<String, Object> model) {
-        List<NewsDto> news = service.findByHeadingName(heading, page == null ? 0 : page);
+        page = page == null ? 0 : page;
+        List<NewsDto> news = service.findByHeadingName(heading, page - 1);
         Iterable<Menu> headings = service.findHeadings();
         model.put("newsList", news);
         model.put("menu", headings);
         model.put("heading", heading);
+        model.put("raquo", page + 1);
+        model.put("laquo", page - 1);
+        model.put("count", 10);
+        model.put("currentPage", page);
         return "newsList";
     }
 
@@ -50,11 +52,16 @@ public class ControllerNews {
     public String getNewsByAuthor(@PathVariable("login") String login,
                                   @PathVariable(value = "page", required = false) Integer page,
                                   Map<String, Object> model) {
-        List<NewsDto> news = service.findByAuthor(login, page == null ? 0 : page);
+        page = page == null ? 0 : page - 1;
+        List<NewsDto> news = service.findByAuthor(login, page - 1);
         Iterable<Menu> headings = service.findHeadings();
         model.put("newsList", news);
         model.put("menu", headings);
         model.put("user", login);
+        model.put("raquo", page + 1);
+        model.put("laquo", page - 1);
+        model.put("count", 10);
+        model.put("currentPage", page);
         return "newsList";
     }
 
@@ -63,11 +70,16 @@ public class ControllerNews {
     public String getNewsByDate(@RequestParam("date") String dateStr,
                                 @PathVariable(value = "page", required = false) Integer page,
                                 Map<String, Object> model) {
-        List<NewsDto> news = service.findByDate(dateStr, page == null ? 0 : page);
+        page = page == null ? 0 : page - 1;
+        List<NewsDto> news = service.findByDate(dateStr, page - 1);
         Iterable<Menu> headings = service.findHeadings();
         model.put("newsList", news);
         model.put("menu", headings);
         model.put("date", dateStr);
+        model.put("raquo", page + 1);
+        model.put("laquo", page - 1);
+        model.put("count", 10);
+        model.put("currentPage", page);
         return "newsList";
 
     }

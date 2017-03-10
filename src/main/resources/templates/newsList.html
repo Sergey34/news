@@ -98,15 +98,17 @@
             </div>
 
             <ul class="pagination">
-                <li class="disabled"><a href="#">&laquo;</a></li>
-                <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-                <li class=""><a href="#">2 <span class="sr-only">(current)</span></a></li>
-                <li class="disabled"><a href="#">&raquo;</a></li>
+                <li th:class="${1==currentPage} ? 'disabled' : 'a'"><a th:href="${laquo}">&laquo;</a></li>
+
+                <li th:each="i : ${#numbers.sequence( 1, count, 1)}" th:class="${currentPage==i} ? 'active' : 'a'">
+                    <a th:href="${i}" th:text="${i}">1 <span class="sr-only"></span></a></li>
+
+                <li th:class="${count==currentPage} ? 'disabled' : 'a'"><a th:href="${raquo}">&raquo;</a></li>
             </ul>
         </div>
     </div>
 </div>
-</div>
+
 
 <!-- /.container -->
 <div class="container">

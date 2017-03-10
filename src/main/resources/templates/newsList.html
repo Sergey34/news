@@ -51,14 +51,12 @@
             <div class="list-group">
                 <a class="list-group-item" href="/adminka/addNews">Добавить новость</a>
                 <a class="list-group-item" href="/adminka">Админка</a>
-                <form action="/date" method="post">
-                    <div>
-                        <div class="input-group">
-                            <input id="date" name="date" type="date" class="form-control">
-                            <span class="input-group-btn">
-        							<button class="btn btn-default" type="submit">Go!</button>
-      							</span>
-                        </div>
+                <form>
+                    <div class="input-group">
+                        <input id="date" name="date" type="date" class="form-control">
+                        <span class="input-group-btn">
+        							<button id="search" class="btn btn-default" type="button">Go!</button>
+                        </span>
                     </div>
                 </form>
                 </p>
@@ -130,6 +128,11 @@
 <!--<script src="../js/jquery.js"></script>-->
 <!-- Bootstrap Core JavaScript -->
 <script src="/js/bootstrap.min.js"></script>
-
+<script>
+    function search() {
+        var date = $("#date").val();
+        window.location.replace("/date/" + date);
+    }
+    document.getElementById("search").onclick = search;</script>
 </body>
 </html>

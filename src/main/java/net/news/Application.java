@@ -22,6 +22,7 @@ public class Application {
     @Configuration
     @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
     protected static class ApplicationSecurity extends WebSecurityConfigurerAdapter {
+
         @Autowired
         UserDetailsService userDetailsService;
 
@@ -30,7 +31,7 @@ public class Application {
             http.authorizeRequests()
                     .antMatchers("/adminka", "/adminka/*").hasRole("ADMIN")
                     .antMatchers("/user", "/addNews").hasRole("USER")
-                    .antMatchers("/*", "/").permitAll().anyRequest()
+                    .antMatchers("/**", "/").permitAll().anyRequest()
                     .fullyAuthenticated().and().formLogin().loginPage("/login")
                     .failureUrl("/login?error").permitAll()
                     .defaultSuccessUrl("/user")

@@ -22,10 +22,20 @@ public class ControllerNews {
         this.service = service;
     }
 
-    @RequestMapping("/addNews")
+    @RequestMapping(value = "/addNews", method = RequestMethod.GET)
     public String getNews(Map<String, Object> model) {
         Iterable<Menu> headings = service.findHeadings();
+        model.put("menu", headings);
+        return "addNews";
+    }
 
+    @RequestMapping(value = "/addNews", method = RequestMethod.POST)
+    public String addNews(@RequestParam("title") String title,
+                          @RequestParam("anons") String anons,
+                          @RequestParam("text") String text,
+                          @RequestParam("headings") List<String> headingNameList,
+                          Map<String, Object> model) {
+        Iterable<Menu> headings = service.findHeadings();
         model.put("menu", headings);
         return "addNews";
     }
@@ -85,11 +95,11 @@ public class ControllerNews {
     }
 
 
-    @RequestMapping(value = {"/date/{page}", "/date"}, method = RequestMethod.POST)
-    public String getNewsByDate(@RequestParam("date") String dateStr,
+    @RequestMapping(value = {"/date/{date}", "/date/{date}/{page}"}, method = RequestMethod.GET)
+    public String getNewsByDate(@PathVariable("date") String dateStr,
                                 @PathVariable(value = "page", required = false) Integer page,
                                 Map<String, Object> model) {
-        page = page == null ? 1 : page - 1;
+        page = page == null ? 1 : page;
         List<NewsDto> news = service.findByDate(dateStr, page - 1);
         Iterable<Menu> headings = service.findHeadings();
         int countPage = service.getCountPageFindByDate(dateStr);
@@ -99,7 +109,7 @@ public class ControllerNews {
         model.put("raquo", page + 1);
         model.put("laquo", page - 1);
         model.put("count", countPage);
-        model.put("url", "/date");
+        model.put("url", "/date/" + dateStr);
         model.put("currentPage", page);
         return "newsList";
 

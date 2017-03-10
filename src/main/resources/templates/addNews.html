@@ -71,14 +71,14 @@
             </div>
         </div>
         <div class="col-md-9">
-            <form>
+            <form action="/addNews" method="post">
                 <div class="form-group">
                     <label for="TitleNews">Заголовок новости</label>
-                    <input type="text" class="form-control" id="TitleNews">
+                    <input type="text" class="form-control" minlength="5" id="TitleNews">
                 </div>
                 <div class="form-group">
                     <label for="anons">Анонс</label>
-                    <textarea class="form-control" maxlength="250" id="anons" rows="3"></textarea>
+                    <textarea class="form-control" maxlength="250" minlength="20" id="anons" rows="3"></textarea>
                 </div>
                 <div class="form-group">
                     <label for="exampleSelect2">Рубрики</label>

@@ -34,7 +34,7 @@ public class News {
     @Column(length = 50*2)
     private String title;
     @ManyToOne(fetch = FetchType.EAGER)
-    private User autor;
+    private User author;
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Heading> heading;
     @Column(length = 250*2)

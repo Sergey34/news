@@ -1,27 +1,20 @@
-package net.news.domain.users;
+package net.news.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.news.domain.users.Role;
 
-import javax.persistence.*;
 import java.util.Set;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity
-public class User {
-    @Id
-    @GeneratedValue
-    private long id;
-    @Column(unique = true)
+public class UserDto {
     private String login;
     private String name;
     private String email;
-    private String password;
-    @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
 }

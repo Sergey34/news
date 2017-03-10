@@ -17,7 +17,7 @@ public class NewsDto {
     private long id;
     private Date date;
     private String title;
-    private String autor;
+    private String author;
     private List<Heading> heading;
     private String anons;
     private String text;

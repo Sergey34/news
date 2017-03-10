@@ -14,26 +14,30 @@ import java.util.List;
 public class NewsService {
     private final NewsDao dao;
     private final HeadingDao headingDao;
-    private final Converter converter;
+    private final ConverterNews converterNews;
 
 
     @Autowired
-    public NewsService(NewsDao dao, HeadingDao headingDao, Converter converter) {
+    public NewsService(NewsDao dao, HeadingDao headingDao, ConverterNews converterNews) {
         this.dao = dao;
         this.headingDao = headingDao;
-        this.converter = converter;
+        this.converterNews = converterNews;
     }
 
     public NewsDto findById(long id) {
         News news = dao.findOne(id);
-        return converter.newsToNewsDto(news);
+        return converterNews.newsToNewsDto(news);
     }
 
     public List<Menu> findHeadings() {
-        return converter.headingsToMenu(headingDao.findAll());
+        return converterNews.headingsToMenu(headingDao.findAll());
     }
 
     public List<NewsDto> findByHeadingName(String name) {
-        return converter.newsToNewsDto(dao.findByHeading_name(name));
+        return converterNews.newsToNewsDto(dao.findByHeading_name(name));
+    }
+
+    public List<NewsDto> findByAuthor(String login) {
+        return converterNews.newsToNewsDto(dao.findByAuthor_login(login));
     }
 }

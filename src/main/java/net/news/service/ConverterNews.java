@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class Converter {
+public class ConverterNews {
     public List<Menu> headingsToMenu(Collection<Heading> headings) {
         return headings.stream().map(this::headingToMenu).collect(Collectors.toList());
     }
@@ -22,12 +22,13 @@ public class Converter {
     }
 
     public NewsDto newsToNewsDto(News news) {
-        return NewsDto.builder().id(news.getId())
+        return NewsDto.builder()
+                .id(news.getId())
                 .title(news.getTitle())
                 .anons(news.getAnons())
                 .text(news.getText())
                 .date(news.getDate())
-                .autor(news.getAutor().getLogin())
+                .author(news.getAuthor().getLogin())
                 .heading(news.getHeading()).build();
     }
 

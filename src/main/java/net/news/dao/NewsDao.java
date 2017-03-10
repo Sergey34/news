@@ -11,6 +11,7 @@ import java.util.List;
 @Transactional
 public interface NewsDao extends CrudRepository<News, Long> {
 
-
     List<News> findByHeading_name(String name);
+
+    List<News> findByAuthor_login(String login);
 }

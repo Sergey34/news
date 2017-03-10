@@ -32,6 +32,7 @@
             </button>
             <a class="navbar-brand" href="/">News</a>
         </div>
+
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav" id="navbar-nav">
@@ -44,6 +45,7 @@
 </nav>
 <!-- Page Content -->
 
+
 <div class="container">
     <div class="row">
         <div class="col-md-3" id="list_menu">
@@ -54,39 +56,39 @@
 
                 <a class="list-group-item" th:each="emp : ${menu}" th:href="${emp.url}"
                    th:text="${emp.name}">рубрика</a>
+
             </div>
         </div>
         <div class="col-md-9">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <h4 th:if="${user!=null}" th:text="${'Новости созданные пользователем '+ user}">Новости созданные
-                        пользователем</h4>
-                    <h4 th:if="${heading!=null}" th:text="${'Новости из рубрики '+ heading}">Новости из рубрики</h4>
-                </div>
-            </div>
             <div class="row">
-                <div class="col-sm-6 col-lg-6 col-md-6" th:each="news : ${newsList}">
+                <div class="col-sm-12 col-lg-12 col-md-12">
                     <div class="thumbnail">
                         <div class="caption">
                             <h1 th:text="${news.title}">Title</h1>
                         </div>
                         <div class="caption">
                             <p class="lead" th:text="${news.anons}">anons</p>
+                            <p th:text="${news.text}">text</p>
                         </div>
+
+
                         <div class="caption">
-                            <a th:href="${'/author/' + news.author}"><h4 class="pull-right" th:text="${news.author}">
+                            <a th:href="${'/user/' + news.author}"><h4 class="pull-right" th:text="${news.author}">
                                 author</h4></a>
                             <h4><label th:text="${#dates.format(news.date)}">date</label>
                             </h4>
+                            <table>
+                                <tr th:each="emp,iterationStatus  : ${news.heading}">
+                                    <a th:text="${emp.name}">Name</a> &nbsp
+                                </tr>
+                            </table>
                         </div>
+
                     </div>
                 </div>
-
-
             </div>
         </div>
     </div>
-</div>
 </div>
 
 <!-- /.container -->

@@ -85,7 +85,7 @@ public class TmpConfig {
                 "blaTitlebla TitleblaTitleblaTitl eblaTitleblaTitlebla TitleblaTitleblaTitle blaTitleblaTitleblaTitleblaTi tleblaTitleblaTitleblaTi tleblaTitleblaTitleblaTitle blaTitleblaTitleblaTitleblaTitleblaTitleblaTitleblaTitle blaTitleblaTitleblaTi tleblaTitleblaTitleb laTitleblaTitlebla TitleblaTitleblaTitleb laTitleblaTitleblaTitl eblaTitleblaTitleblaTit lebla";
         News news = News.builder()
                 .anons(anons)
-                .autor(userDao.findOneByLogin("user"))
+                .author(userDao.findOneByLogin("user"))
                 .date(new Date())
                 .title("TitleBla")
                 .text(text)
@@ -93,7 +93,7 @@ public class TmpConfig {
         dao.save(news);
         News news2 = News.builder()
                 .anons("bla2")
-                .autor(userDao.findOneByLogin("seko"))
+                .author(userDao.findOneByLogin("seko"))
                 .date(new Date())
                 .title("blaTitle2")
                 .text("blablablabla2")

@@ -4,6 +4,7 @@ import net.news.dao.HeadingDao;
 import net.news.dao.NewsDao;
 import net.news.domain.news.News;
 import net.news.dto.Menu;
+import net.news.dto.NewsDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,15 +24,16 @@ public class NewsService {
         this.converter = converter;
     }
 
-    public News findById(long id) {
-        return dao.findOne(id);
+    public NewsDto findById(long id) {
+        News news = dao.findOne(id);
+        return converter.newsToNewsDto(news);
     }
 
     public List<Menu> findHeadings() {
         return converter.headingsToMenu(headingDao.findAll());
     }
 
-    public List<News> findByHeadingName(String name) {
-        return dao.findByHeading_name(name);
+    public List<NewsDto> findByHeadingName(String name) {
+        return converter.newsToNewsDto(dao.findByHeading_name(name));
     }
 }

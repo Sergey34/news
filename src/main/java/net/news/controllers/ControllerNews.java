@@ -1,7 +1,7 @@
 package net.news.controllers;
 
-import net.news.domain.news.News;
 import net.news.dto.Menu;
+import net.news.dto.NewsDto;
 import net.news.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +18,7 @@ public class ControllerNews {
 
     @RequestMapping("/news/{id}")
     public String getNews(@PathVariable("id") long id, Map<String, Object> model) {
-        News news = service.findById(id);
+        NewsDto news = service.findById(id);
         Iterable<Menu> headings = service.findHeadings();
         model.put("news", news);
         model.put("menu", headings);
@@ -26,7 +26,7 @@ public class ControllerNews {
     }
     @RequestMapping("/{heading}")
     public String getNewsByHeading(@PathVariable("heading") String heading, Map<String, Object> model) {
-        List<News> news = service.findByHeadingName(heading);
+        List<NewsDto> news = service.findByHeadingName(heading);
         Iterable<Menu> headings = service.findHeadings();
         model.put("newsList", news);
         model.put("menu", headings);

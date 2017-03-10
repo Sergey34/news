@@ -27,6 +27,7 @@ public class Converter {
                 .anons(news.getAnons())
                 .text(news.getText())
                 .date(news.getDate())
+                .autor(news.getAutor().getLogin())
                 .heading(news.getHeading()).build();
     }
 

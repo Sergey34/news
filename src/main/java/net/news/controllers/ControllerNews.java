@@ -45,6 +45,7 @@ public class ControllerNews {
         model.put("raquo", page + 1);
         model.put("laquo", page - 1);
         model.put("count", countPage);
+        model.put("url", "/heading/" + heading);
         model.put("currentPage", page);
         return "newsList";
     }
@@ -53,7 +54,7 @@ public class ControllerNews {
     public String getNewsByAuthor(@PathVariable("login") String login,
                                   @PathVariable(value = "page", required = false) Integer page,
                                   Map<String, Object> model) {
-        page = page == null ? 1 : page - 1;
+        page = page == null ? 1 : page;
         List<NewsDto> news = service.findByAuthor(login, page - 1);
         Iterable<Menu> headings = service.findHeadings();
         int countPage = service.getCountPageFindByAuthor(login);
@@ -63,6 +64,7 @@ public class ControllerNews {
         model.put("raquo", page + 1);
         model.put("laquo", page - 1);
         model.put("count", countPage);
+        model.put("url", "/author/" + login);
         model.put("currentPage", page);
         return "newsList";
     }
@@ -82,6 +84,7 @@ public class ControllerNews {
         model.put("raquo", page + 1);
         model.put("laquo", page - 1);
         model.put("count", countPage);
+        model.put("url", "/date");
         model.put("currentPage", page);
         return "newsList";
 

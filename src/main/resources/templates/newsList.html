@@ -50,6 +50,7 @@
             <p class="lead">Навигация</p>
             <div class="list-group">
                 <a class="list-group-item" href="/adminka/addNews">Добавить новость</a>
+                <a class="list-group-item" href="/adminka">Админка</a>
                 <form action="/date" method="post">
                     <div>
                         <div class="input-group">
@@ -99,13 +100,13 @@
 
             <ul class="pagination">
                 <li th:class="${1==currentPage} ? 'disabled' : 'a'"><a
-                        th:href=" ${1==currentPage} ? '#' : laquo">&laquo;</a></li>
+                        th:href=" ${1==currentPage} ? '#' : ${url} +'/'+${laquo}">&laquo;</a></li>
 
                 <li th:each="i : ${#numbers.sequence( 1, count, 1)}" th:class="${currentPage==i} ? 'active' : 'a'">
-                    <a th:href="${'/heading/'+heading +'/'+i}" th:text="${i}">1 <span class="sr-only"></span></a></li>
+                    <a th:href="${url} +'/'+ ${i} " th:text="${i}">1 <span class="sr-only"></span></a></li>
 
                 <li th:class="${count==currentPage} ? 'disabled' : 'a'"><a
-                        th:href="${count==currentPage} ? '#': raquo">&raquo;</a></li>
+                        th:href="${count==currentPage} ? '#': ${url} +'/'+${raquo}">&raquo;</a></li>
             </ul>
         </div>
     </div>

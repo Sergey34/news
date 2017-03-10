@@ -8,9 +8,6 @@ spring:
     username: sa
   jpa:
     show-sql: true
-
-
-
     properties:
       hibernate:
         show_sql: true
@@ -21,4 +18,4 @@ logging:
       hibernate:
         type: trace
 cursor:
-  size: 10
+  size: 1

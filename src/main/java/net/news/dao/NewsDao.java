@@ -18,4 +18,10 @@ public interface NewsDao extends CrudRepository<News, Long> {
     List<News> findByAuthor_login(String login, Pageable pageable);
 
     List<News> findByDateBetween(Date dateStart, Date dateStop, Pageable pageable);
+
+    int countByAuthor_login(String login);
+
+    int countByDateBetween(Date startDate, Date stopDate);
+
+    int countByHeading_name(String heading);
 }

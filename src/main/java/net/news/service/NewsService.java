@@ -72,4 +72,28 @@ public class NewsService {
     public void init() throws ParseException {
     }
 
+    public int getCountPageFindByDate(String dateStr) {
+        DateManager dateManager;
+        try {
+            dateManager = ((DateManager) context.getBean("dateManager")).calculate(dateStr);
+        } catch (ParseException e) {
+            log.warn("Некоректная дата", e);
+            return 0;
+        }
+        Date startDate = dateManager.getStartDate();
+        Date stopDate = dateManager.getStopDate();
+        return calculateCountPages(dao.countByDateBetween(startDate, stopDate));
+    }
+
+    private int calculateCountPages(int count) {
+        return (int) Math.ceil(count * 1.0 / size);
+    }
+
+    public int getCountPageFindByAuthor(String login) {
+        return calculateCountPages(dao.countByAuthor_login(login));
+    }
+
+    public int getCountPageFindByHeadingName(String heading) {
+        return calculateCountPages(dao.countByHeading_name(heading));
+    }
 }

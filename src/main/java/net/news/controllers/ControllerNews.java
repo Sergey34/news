@@ -38,12 +38,13 @@ public class ControllerNews {
         page = page == null ? 0 : page;
         List<NewsDto> news = service.findByHeadingName(heading, page - 1);
         Iterable<Menu> headings = service.findHeadings();
+        int countPage = service.getCountPageFindByHeadingName(heading);
         model.put("newsList", news);
         model.put("menu", headings);
         model.put("heading", heading);
         model.put("raquo", page + 1);
         model.put("laquo", page - 1);
-        model.put("count", 10);
+        model.put("count", countPage);
         model.put("currentPage", page);
         return "newsList";
     }
@@ -55,12 +56,13 @@ public class ControllerNews {
         page = page == null ? 0 : page - 1;
         List<NewsDto> news = service.findByAuthor(login, page - 1);
         Iterable<Menu> headings = service.findHeadings();
+        int countPage = service.getCountPageFindByAuthor(login);
         model.put("newsList", news);
         model.put("menu", headings);
         model.put("user", login);
         model.put("raquo", page + 1);
         model.put("laquo", page - 1);
-        model.put("count", 10);
+        model.put("count", countPage);
         model.put("currentPage", page);
         return "newsList";
     }
@@ -73,12 +75,13 @@ public class ControllerNews {
         page = page == null ? 0 : page - 1;
         List<NewsDto> news = service.findByDate(dateStr, page - 1);
         Iterable<Menu> headings = service.findHeadings();
+        int countPage = service.getCountPageFindByDate(dateStr);
         model.put("newsList", news);
         model.put("menu", headings);
         model.put("date", dateStr);
         model.put("raquo", page + 1);
         model.put("laquo", page - 1);
-        model.put("count", 10);
+        model.put("count", countPage);
         model.put("currentPage", page);
         return "newsList";
 

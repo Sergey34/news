@@ -7,9 +7,11 @@ import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @SpringBootApplication
 public class Application {
@@ -23,22 +25,19 @@ public class Application {
         @Autowired
         UserDetailsService userDetailsService;
 
-        /*@Override
+        @Override
         protected void configure(HttpSecurity http) throws Exception {
-            http.csrf().disable().authorizeRequests()
-                    .antMatchers("/rest/write*//*", "/adminka*//*").hasRole("ADMIN")
-                    .antMatchers("/rest*//*", "*/
-
-        /**
-         * ").permitAll().anyRequest()
-         * .fullyAuthenticated().and().formLogin().loginPage("/login")
-         * .failureUrl("/login?error").permitAll()
-         * .defaultSuccessUrl("/airfoilList.html")
-         * .and()
-         * .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login")
-         * .permitAll();
-         * }
-         */
+            http.authorizeRequests()
+                    .antMatchers("/adminka", "/adminka/*").hasRole("ADMIN")
+                    .antMatchers("/user", "/addNews").hasRole("USER")
+                    .antMatchers("/*", "/").permitAll().anyRequest()
+                    .fullyAuthenticated().and().formLogin().loginPage("/login")
+                    .failureUrl("/login?error").permitAll()
+                    .defaultSuccessUrl("/user")
+                    .and()
+                    .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login")
+                    .permitAll();
+        }
 
 
         @Override

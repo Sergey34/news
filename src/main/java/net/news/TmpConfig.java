@@ -21,8 +21,8 @@ public class TmpConfig {
 
     static {
         roles = new HashMap<>();
-        roles.put("ADMIN", Role.builder().authority("ADMIN").build());
-        roles.put("USER", Role.builder().authority("USER").build());
+        roles.put("ADMIN", Role.builder().authority("ROLE_ADMIN").build());
+        roles.put("USER", Role.builder().authority("ROLE_USER").build());
     }
 
     private final DaoUser daoUser;

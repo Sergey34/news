@@ -25,8 +25,16 @@ public class ControllerNews {
     @RequestMapping("/addNews")
     public String getNews(Map<String, Object> model) {
         Iterable<Menu> headings = service.findHeadings();
+
         model.put("menu", headings);
         return "addNews";
+    }
+
+    @RequestMapping("/login")
+    public String login(Map<String, Object> model) {
+        Iterable<Menu> headings = service.findHeadings();
+        model.put("menu", headings);
+        return "login";
     }
 
     @RequestMapping("/news/{id}")

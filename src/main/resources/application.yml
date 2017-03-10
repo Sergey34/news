@@ -20,10 +20,5 @@ logging:
     org:
       hibernate:
         type: trace
-security:
-  user:
-    name: admin
-    password: admin
-    role: ADMIN
 cursor:
   size: 10

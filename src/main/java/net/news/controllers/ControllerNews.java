@@ -35,7 +35,7 @@ public class ControllerNews {
     public String getNewsByHeading(@PathVariable(value = "heading") String heading,
                                    @PathVariable(value = "page", required = false) Integer page,
                                    Map<String, Object> model) {
-        page = page == null ? 0 : page;
+        page = page == null ? 1 : page;
         List<NewsDto> news = service.findByHeadingName(heading, page - 1);
         Iterable<Menu> headings = service.findHeadings();
         int countPage = service.getCountPageFindByHeadingName(heading);
@@ -53,7 +53,7 @@ public class ControllerNews {
     public String getNewsByAuthor(@PathVariable("login") String login,
                                   @PathVariable(value = "page", required = false) Integer page,
                                   Map<String, Object> model) {
-        page = page == null ? 0 : page - 1;
+        page = page == null ? 1 : page - 1;
         List<NewsDto> news = service.findByAuthor(login, page - 1);
         Iterable<Menu> headings = service.findHeadings();
         int countPage = service.getCountPageFindByAuthor(login);
@@ -72,7 +72,7 @@ public class ControllerNews {
     public String getNewsByDate(@RequestParam("date") String dateStr,
                                 @PathVariable(value = "page", required = false) Integer page,
                                 Map<String, Object> model) {
-        page = page == null ? 0 : page - 1;
+        page = page == null ? 1 : page - 1;
         List<NewsDto> news = service.findByDate(dateStr, page - 1);
         Iterable<Menu> headings = service.findHeadings();
         int countPage = service.getCountPageFindByDate(dateStr);

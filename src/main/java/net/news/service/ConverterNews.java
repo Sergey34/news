@@ -18,7 +18,7 @@ public class ConverterNews {
 
     private Menu headingToMenu(Heading heading) {
         return Menu.builder().name(heading.getName())
-                .url("/" + heading.getName()).build();
+                .url(heading.getName()).build();
     }
 
     public NewsDto newsToNewsDto(News news) {

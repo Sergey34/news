@@ -66,7 +66,7 @@
             </div>
             <p class="lead">Рубрики</p>
             <div class="list-group">
-                <a class="list-group-item" th:each="menu_item : ${menu}" th:href="${'/heading/'+menu_item.url + '/0'}"
+                <a class="list-group-item" th:each="menu_item : ${menu}" th:href="${'/heading/'+menu_item.url}"
                    th:text="${emp.name}">рубрика</a>
 
             </div>

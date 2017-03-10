@@ -64,7 +64,7 @@
             </div>
             <p class="lead">Рубрики</p>
             <div class="list-group">
-                <a class="list-group-item" th:each="menu_item : ${menu}" th:href="${'/heading/'+menu_item.url + '/0'}"
+                <a class="list-group-item" th:each="menu_item : ${menu}" th:href="${'/heading/'+menu_item.url}"
                    th:text="${menu_item.name}">рубрика</a>
 
             </div>
@@ -98,12 +98,14 @@
             </div>
 
             <ul class="pagination">
-                <li th:class="${1==currentPage} ? 'disabled' : 'a'"><a th:href="${laquo}">&laquo;</a></li>
+                <li th:class="${1==currentPage} ? 'disabled' : 'a'"><a
+                        th:href=" ${1==currentPage} ? '#' : laquo">&laquo;</a></li>
 
                 <li th:each="i : ${#numbers.sequence( 1, count, 1)}" th:class="${currentPage==i} ? 'active' : 'a'">
-                    <a th:href="${i}" th:text="${i}">1 <span class="sr-only"></span></a></li>
+                    <a th:href="${'/heading/'+heading +'/'+i}" th:text="${i}">1 <span class="sr-only"></span></a></li>
 
-                <li th:class="${count==currentPage} ? 'disabled' : 'a'"><a th:href="${raquo}">&raquo;</a></li>
+                <li th:class="${count==currentPage} ? 'disabled' : 'a'"><a
+                        th:href="${count==currentPage} ? '#': raquo">&raquo;</a></li>
             </ul>
         </div>
     </div>

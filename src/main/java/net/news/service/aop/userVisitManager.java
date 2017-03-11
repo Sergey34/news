@@ -1,6 +1,5 @@
 package net.news.service.aop;
 
-import net.news.dao.DaoUser;
 import net.news.service.UserService;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
@@ -11,12 +10,10 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 public class userVisitManager {
-    private final DaoUser daoUser;
     private final UserService userService;
 
     @Autowired
-    public userVisitManager(DaoUser daoUser, UserService userService) {
-        this.daoUser = daoUser;
+    public userVisitManager(UserService userService) {
         this.userService = userService;
     }
 

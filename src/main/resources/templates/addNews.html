@@ -88,7 +88,7 @@
                     <select name="headings" multiple class="form-control" id="exampleSelect2">
                         <option th:each="menu_item : ${menu}" th:text="${menu_item.name}">1</option>
                     </select>
-                    <input name="title" type="text" class="form-control" pattern=".{3,}" required
+                    <input name="title" type="text" class="form-control" pattern=".{3,}"
                            minlength="3" id="addHeading">
                     <button type="button" onclick="myFunction()">Добавить рубрику</button>
                 </div>

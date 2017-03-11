@@ -1,5 +1,6 @@
 package net.news.controllers;
 
+import net.news.domain.users.Role;
 import net.news.dto.Menu;
 import net.news.dto.NewsDto;
 import net.news.dto.UserDto;
@@ -61,7 +62,10 @@ public class ControllerNews {
                           @RequestParam("text") String text,
                           @RequestParam("headings") List<String> headingNameList,
                           Map<String, Object> model) {
-        service.saveNews(title, anons, text, headingNameList);
+        boolean saved = service.saveNews(title, anons, text, headingNameList);
+        if (!saved) {
+            model.put("error", "Новость не добавлена");
+        }
         Iterable<Menu> headings = service.findHeadings();
         model.put("menu", headings);
         return "addNews";
@@ -144,12 +148,32 @@ public class ControllerNews {
     public String getNewsByDate(@PathVariable(value = "column", required = false) String column,
                                 @PathVariable(value = "sort", required = false) String sort,
                                 Map<String, Object> model) {
-        String currentSort = sort == null ? "" : "asc".equals(sort) ? "↑" : "↓";
         Iterable<Menu> headings = service.findHeadings();
         List<UserDto> users = userService.gitAllUsers(column, sort);
+        List<Role> roles = userService.getAllRoles();
         model.put("menu", headings);
+        model.put("roles", roles);
         model.put("users", users);
         model.put("sort", "asc".equals(sort) ? "desc" : "asc");
+        return "adminka";
+    }
+
+    @RequestMapping(value = {"/user"}, method = RequestMethod.POST)
+    public String addUser(@RequestParam("name") String name,
+                          @RequestParam("login") String login,
+                          @RequestParam("email") String email,
+                          @RequestParam("password") String pass,
+                          @RequestParam("roles") List<String> roles,
+                          Map<String, Object> model) {
+        boolean saved = userService.addUser(login, name, pass, roles, email);
+        if (!saved) {
+            model.put("error", "Пользователь не добавлены");
+        }
+        Iterable<Menu> headings = service.findHeadings();
+        List<UserDto> users = userService.gitAllUsers(null, null);
+        model.put("menu", headings);
+        model.put("users", users);
+        model.put("sort", "asc");
         return "adminka";
     }
 

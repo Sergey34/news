@@ -2,6 +2,7 @@ package net.news.service;
 
 import net.news.dao.DaoRole;
 import net.news.dao.DaoUser;
+import net.news.domain.users.Role;
 import net.news.domain.users.User;
 import net.news.dto.UserDto;
 import net.news.service.converters.ConverterUsers;
@@ -9,10 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class UserService {
@@ -51,6 +55,36 @@ public class UserService {
         return "asc".equals(sort) ?
                 converter.userToUserDto(daoUser.findAll(new Sort(Sort.Direction.DESC, column))) :
                 converter.userToUserDto(daoUser.findAll(new Sort(Sort.Direction.ASC, column)));
+    }
+
+    public boolean addUser(String login, String name, String pass, List<String> roles, String email) {
+        if (daoUser.findOneByLogin(login) != null) {
+            return false;
+        }
+        User user = User.builder()
+                .login(login)
+                .password(new BCryptPasswordEncoder().encode(pass))
+                .email(email)
+                .roles(getRoleByRoleName(roles))
+                .name(name).build();
+        daoUser.save(user);
+        return false;
+    }
+
+    private Set<Role> getRoleByRoleName(List<String> roles) {
+        Set<Role> rolesResult = new HashSet<>();
+        for (String role : roles) {
+            for (Role role1 : getAllRoles()) {
+                if (role.equals(role1.getAuthority())) {
+                    rolesResult.add(role1);
+                }
+            }
+        }
+        return rolesResult;
+    }
+
+    public List<Role> getAllRoles() {
+        return daoRole.findAll();
     }
 }
 

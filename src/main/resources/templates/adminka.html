@@ -76,9 +76,74 @@
                 <div class="col-sm-12 col-lg-12 col-md-12">
                     <div class="panel panel-default">
                         <!-- Default panel contents -->
-                        <div class="panel-heading">Panel heading</div>
+                        <div class="panel-heading">Полный список пользователей в системе</div>
                         <div class="panel-body">
-                            <p>...</p>
+                            <div th:if="${error!=null}" th:text="${error}" class="alert alert-error">
+                            </div>
+                            <h2>Регистрация</h2>
+                            <form class="form-horizontal" th:action="@{/user}" method="post">
+                                <div class="form-group">
+                                    <label class="control-label col-xs-3" for="firstName">Имя:</label>
+                                    <div class="col-xs-9">
+                                        <input type="text" class="form-control" pattern=".{4,10}" required minlength="4"
+                                               id="firstName"
+                                               name="name"
+                                               placeholder="Введите имя">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-xs-3" for="firstName">Логин:</label>
+                                    <div class="col-xs-9">
+                                        <input type="text" class="form-control" pattern=".{4,10}" required minlength="4"
+                                               id="login"
+                                               name="login"
+                                               placeholder="Введите логин">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-xs-3" for="inputEmail">Email:</label>
+                                    <div class="col-xs-9">
+                                        <input type="email" name="email" class="form-control" pattern=".{4,10}" required
+                                               minlength="4" id="inputEmail"
+                                               placeholder="Email">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-xs-3" for="exampleSelect2">Роли</label>
+                                    <div class="col-xs-9">
+                                        <select name="headings" multiple class="form-control" name="roles"
+                                                id="exampleSelect2">
+                                            <option th:each="role : ${roles}" th:text="${role.authority}">1</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-xs-3" for="password">Пароль:</label>
+                                    <div class="col-xs-9">
+                                        <input type="password" name="password" pattern=".{4,10}" required minlength="4"
+                                               class="form-control"
+                                               id="password"
+                                               placeholder="Введите пароль">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-xs-3" for="confirmPassword">Подтвердите
+                                        пароль:</label>
+                                    <div class="col-xs-9">
+                                        <input type="password" name="password2" pattern=".{4,10}" required minlength="4"
+                                               class="form-control"
+                                               id="confirmPassword"
+                                               placeholder="Введите пароль ещё раз">
+                                    </div>
+                                </div>
+                                <br/>
+                                <div class="form-group">
+                                    <div class="col-xs-offset-3 col-xs-9">
+                                        <input type="submit" class="btn btn-primary" value="Регистрация">
+                                        <input type="reset" class="btn btn-default" value="Очистить форму">
+                                    </div>
+                                </div>
+                            </form>
                         </div>
 
                         <!-- Table -->
@@ -144,6 +209,21 @@
 <!-- Bootstrap Core JavaScript -->
 <script src="/js/bootstrap.min.js"></script>
 <script>
+    var password = document.getElementById("password")
+        , confirm_password = document.getElementById("confirmPassword");
+
+    function validatePassword() {
+        if (password.value != confirm_password.value) {
+            confirm_password.setCustomValidity("Пароли не совпадают");
+        } else {
+            confirm_password.setCustomValidity('');
+        }
+    }
+
+    password.onchange = validatePassword;
+    confirm_password.onkeyup = validatePassword;
+
+
     function search() {
         var date = $("#date").val();
         window.location.replace("/date/" + date);

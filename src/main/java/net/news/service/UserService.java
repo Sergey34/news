@@ -118,5 +118,18 @@ public class UserService {
         }
         return false;
     }
+
+    public boolean currentUserIsAdmin() {
+        User currentUser = getCurrentUser();
+        if (currentUser == null) {
+            return false;
+        }
+        for (Role role : currentUser.getRoles()) {
+            if ("ROLE_ADMIN".equals(role.getAuthority())) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
 

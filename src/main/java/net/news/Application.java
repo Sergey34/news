@@ -29,7 +29,7 @@ public class Application {
         @Override
         protected void configure(HttpSecurity http) throws Exception {
             http.authorizeRequests()
-                    .antMatchers("/adminka", "/addUser", "/user/*").hasRole("ADMIN")
+                    .antMatchers("/adminka", "/addUser", "/user/*", "/delete/*").hasRole("ADMIN")
                     .antMatchers("/user", "/addNews", "/user").hasRole("USER")
                     .antMatchers("/**", "/").permitAll().anyRequest()
                     .fullyAuthenticated().and().formLogin().loginPage("/login")

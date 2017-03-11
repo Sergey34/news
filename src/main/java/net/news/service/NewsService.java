@@ -138,4 +138,8 @@ public class NewsService {
     public long count() {
         return calculateCountPages(dao.count());
     }
+
+    public void delete(long id) {
+        dao.delete(id);
+    }
 }

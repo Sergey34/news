@@ -91,6 +91,7 @@ public class ControllerNews {
         Iterable<Menu> headings = service.findHeadings();
         model.put("news", news);
         model.put("menu", headings);
+        model.put("isAdmin", userService.currentUserIsAdmin());
         model.put("login", userService.getLoginCurrentUser());
         return "news";
     }
@@ -228,6 +229,12 @@ public class ControllerNews {
         model.put("user", userDto);
         model.put("login", userService.getLoginCurrentUser());
         return "user";
+    }
+
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    public String deleteNews(@PathVariable("id") long id, Map<String, Object> model) {
+        service.delete(id);
+        return "redirect:/lenta";
     }
 
 }

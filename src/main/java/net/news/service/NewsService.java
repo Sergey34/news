@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import javax.annotation.PostConstruct;
 import java.text.ParseException;
@@ -103,7 +102,7 @@ public class NewsService {
     }
 
     public boolean saveNews(String title, String anons, String text, List<String> headingNameList) {
-        if (StringUtils.isEmpty(title) || StringUtils.isEmpty(anons) || StringUtils.isEmpty(text) || headingNameList.size() == 0) {
+        if (headingNameList.size() == 0) {
             return false;
         }
         News news = News.builder()

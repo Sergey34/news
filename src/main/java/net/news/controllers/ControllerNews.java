@@ -167,7 +167,7 @@ public class ControllerNews {
                           Map<String, Object> model) {
         boolean saved = userService.addUser(login, name, pass, roles, email);
         if (!saved) {
-            model.put("error", "Пользователь не добавлены");
+            model.put("error", "Пользователь с таким логином уже существует.");
         }
         Iterable<Menu> headings = service.findHeadings();
         List<UserDto> users = userService.gitAllUsers(null, null);
@@ -181,8 +181,6 @@ public class ControllerNews {
     @RequestMapping(value = {"/user/{login}", "/user"}, method = RequestMethod.GET)
     public String user(@PathVariable(value = "user", required = false) String user,
                        Map<String, Object> model) {
-
-
         Iterable<Menu> headings = service.findHeadings();
         UserDto userDto = userService.getUser(user);
         List<Role> roles = userService.getAllRoles();

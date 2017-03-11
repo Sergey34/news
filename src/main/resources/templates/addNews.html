@@ -87,8 +87,10 @@
                     <label for="exampleSelect2">Рубрики</label>
                     <select name="headings" multiple class="form-control" id="exampleSelect2">
                         <option th:each="menu_item : ${menu}" th:text="${menu_item.name}">1</option>
-
                     </select>
+                    <input name="title" type="text" class="form-control" pattern=".{3,}" required
+                           minlength="3" id="addHeading">
+                    <button type="button" onclick="myFunction()">Добавить рубрику</button>
                 </div>
                 <div class="form-group">
                     <label for="text">Текст новости</label>
@@ -119,6 +121,14 @@
 <!--<script src="../js/jquery.js"></script>-->
 <!-- Bootstrap Core JavaScript -->
 <script src="/js/bootstrap.min.js"></script>
+<script>
+    function myFunction() {
+        var x = document.getElementById("exampleSelect2");
+        var option = document.createElement("option");
+        option.text = $("#addHeading").val();
+        x.add(option);
+    }
+</script>
 <script>
     function search() {
         var date = $("#date").val();

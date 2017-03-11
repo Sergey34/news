@@ -73,6 +73,9 @@ public class UserService {
 
     private Set<Role> getRoleByRoleName(List<String> roles) {
         Set<Role> rolesResult = new HashSet<>();
+        if (roles == null) {
+            return rolesResult;
+        }
         for (String role : roles) {
             for (Role role1 : getAllRoles()) {
                 if (role.equals(role1.getAuthority())) {
@@ -100,6 +103,20 @@ public class UserService {
     public String getLoginCurrentUser() {
         User currentUser = getCurrentUser();
         return currentUser == null ? null : currentUser.getLogin();
+    }
+
+    public boolean update(String login, String name, String pass, List<String> roles, String email, String passOld) {
+        User user = daoUser.findOneByLogin(login);
+        if (user.getPassword().equals(new BCryptPasswordEncoder().encode(passOld))) {
+            user.setName(name);
+            user.setPassword(new BCryptPasswordEncoder().encode(pass));
+            user.setEmail(email);
+            user.setLogin(login);
+            user.setRoles(getRoleByRoleName(roles));
+            daoUser.save(user);
+            return true;
+        }
+        return false;
     }
 }
 

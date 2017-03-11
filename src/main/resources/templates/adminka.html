@@ -112,7 +112,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-xs-3" for="exampleSelect2">Роли</label>
                                     <div class="col-xs-9">
-                                        <select name="headings" multiple class="form-control" name="roles"
+                                        <select multiple class="form-control" name="roles"
                                                 id="exampleSelect2">
                                             <option th:each="role : ${roles}" th:text="${role.authority}">1</option>
                                         </select>

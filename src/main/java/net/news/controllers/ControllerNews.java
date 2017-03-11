@@ -173,9 +173,9 @@ public class ControllerNews {
                           @RequestParam("login") String login,
                           @RequestParam("email") String email,
                           @RequestParam("password") String pass,
-                          @RequestParam("roles") List<String> roles,
+                          @RequestParam(value = "roles", required = false) List<String> rolesName,
                           Map<String, Object> model) {
-        boolean saved = userService.addUser(login, name, pass, roles, email);
+        boolean saved = userService.addUser(login, name, pass, rolesName, email);
         if (!saved) {
             model.put("error", "Пользователь с таким логином уже существует.");
         }
@@ -186,6 +186,28 @@ public class ControllerNews {
         model.put("sort", "asc");
         model.put("login", userService.getLoginCurrentUser());
         return "adminka";
+    }
+
+    @RequestMapping(value = {"/updateUser"}, method = RequestMethod.POST)
+    public String updateUser(@RequestParam("name") String name,
+                             @RequestParam("login") String login,
+                             @RequestParam("email") String email,
+                             @RequestParam("password") String pass,
+                             @RequestParam("passwordOld") String passOld,
+                             @RequestParam(value = "roles", required = false) List<String> rolesName,
+                             Map<String, Object> model) {
+        boolean saved = userService.update(login, name, pass, rolesName, email, passOld);
+        if (!saved) {
+            model.put("error", "Неверный пароль или логин уже занят");
+        }
+        Iterable<Menu> headings = service.findHeadings();
+        UserDto userDto = userService.getUser(login);
+        List<Role> roles = userService.getAllRoles();
+        model.put("menu", headings);
+        model.put("roles", roles);
+        model.put("user", userDto);
+        model.put("login", userService.getLoginCurrentUser());
+        return "user";
     }
 
 

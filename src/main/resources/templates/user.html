@@ -99,6 +99,7 @@
                                         <input type="text" class="form-control" pattern=".{4,10}" required minlength="4"
                                                id="login"
                                                name="login"
+                                               disabled
                                                th:value="${user.login}"
                                                placeholder="Введите логин">
                                     </div>
@@ -116,7 +117,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-xs-3" for="exampleSelect2">Роли</label>
                                     <div class="col-xs-9">
-                                        <select name="headings" multiple class="form-control" name="roles"
+                                        <select multiple class="form-control" name="roles"
                                                 id="exampleSelect2">
                                             <option th:each="role : ${roles}" th:text="${role.authority}">1</option>
                                         </select>
@@ -154,7 +155,7 @@
                                 <br/>
                                 <div class="form-group">
                                     <div class="col-xs-offset-3 col-xs-9">
-                                        <input type="submit" class="btn btn-primary" value="Регистрация">
+                                        <input type="submit" class="btn btn-primary" value="Сохранить">
                                         <input type="reset" class="btn btn-default" value="Очистить форму">
                                     </div>
                                 </div>

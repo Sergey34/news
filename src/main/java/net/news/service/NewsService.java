@@ -123,6 +123,9 @@ public class NewsService {
             Heading heading = daoHeading.findOneByName(headingName);
             if (heading != null) {
                 headings.add(heading);
+            } else {
+                daoHeading.save(Heading.builder().name(headingName).build());
+                headings.add(daoHeading.findOneByName(headingName));
             }
         }
         return headings;

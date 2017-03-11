@@ -29,4 +29,6 @@ public interface DaoNews extends CrudRepository<News, Long>, PagingAndSortingRep
 
     @Override
     Page<News> findAll(Pageable pageable);
+
+    News findOneById(long id);
 }

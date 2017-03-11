@@ -90,8 +90,8 @@ public class ControllerNews {
         NewsDto news = service.findById(id);
         Iterable<Menu> headings = service.findHeadings();
         model.put("news", news);
-        model.put("menu", headings);
         model.put("isAdmin", userService.currentUserIsAdmin() || service.userIsAuthor(id));
+        model.put("menu", headings);
         model.put("login", userService.getLoginCurrentUser());
         return "news";
     }
@@ -235,6 +235,35 @@ public class ControllerNews {
     public String deleteNews(@PathVariable("id") long id, Map<String, Object> model) {
         service.delete(id);
         return "redirect:/lenta";
+    }
+
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+    public String editNews(@PathVariable("id") long id, Map<String, Object> model) {
+        NewsDto news = service.findById(id);
+        Iterable<Menu> headings = service.findHeadings();
+        model.put("menu", headings);
+        model.put("login", userService.getLoginCurrentUser());
+        model.put("news", news);
+        return "editNews";
+    }
+
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
+    public String updateNews(@PathVariable("id") long id,
+                             @RequestParam("title") String title,
+                             @RequestParam("anons") String anons,
+                             @RequestParam("text") String text,
+                             @RequestParam(value = "headings", required = false) List<String> headingNameList,
+                             Map<String, Object> model) {
+        boolean saved = service.update(title, anons, text, headingNameList, id);
+        if (!saved) {
+            model.put("error", "Новость не обновлена");
+        } else {
+            model.put("completed", "Успешно");
+        }
+        Iterable<Menu> headings = service.findHeadings();
+        model.put("menu", headings);
+        model.put("login", userService.getLoginCurrentUser());
+        return "redirect:/";
     }
 
 }

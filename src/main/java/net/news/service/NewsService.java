@@ -42,7 +42,7 @@ public class NewsService {
     }
 
     public NewsDto findById(long id) {
-        News news = dao.findOne(id);
+        News news = dao.findOneById(id);
         return converterNews.newsToNewsDto(news);
     }
 
@@ -144,13 +144,21 @@ public class NewsService {
         dao.delete(id);
     }
 
-    public News getNewsById(long id) {
-        return dao.findOne(id);
-    }
-
     public boolean userIsAuthor(long id) {
-        News news = dao.findOne(id);
+        News news = dao.findOneById(id);
         User currentUser = userService.getCurrentUser();
         return news.getAuthor().equals(currentUser);
+    }
+
+    public boolean update(String title, String anons, String text, List<String> headingNameList, long id) {
+        News news = dao.findOneById(id);
+        news.setAnons(anons);
+        news.setDate(new Date());
+        news.setText(text);
+        news.setTitle(title);
+        if (headingNameList != null && !headingNameList.isEmpty()) {
+            news.setHeading(gitHeadingsByName(headingNameList));
+        }
+        return true;
     }
 }

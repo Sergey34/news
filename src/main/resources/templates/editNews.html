@@ -76,16 +76,20 @@
             </div>
             <div th:if="${completed!=null}" th:text="${completed}" class="alert alert-success">
             </div>
-            <form th:action="@{/addNews}" method="post">
+            <form th:action="${'/update/' + news.id}" method="post">
                 <div class="form-group">
                     <label for="TitleNews">Заголовок новости</label>
                     <input name="title" type="text" class="form-control" pattern=".{5,}" required
-                           minlength="5" id="TitleNews">
+                           minlength="5"
+                           th:value="${news.title}"
+                           id="TitleNews">
                 </div>
                 <div class="form-group">
                     <label for="anons">Анонс</label>
                     <textarea name="anons" class="form-control" maxlength="250" pattern=".{20,}" required
-                              minlength="20" id="anons"
+                              minlength="20"
+                              id="anons"
+                              th:text="${news.anons}"
                               rows="3"></textarea>
                 </div>
                 <div class="form-group">
@@ -100,7 +104,7 @@
                 <div class="form-group">
                     <label for="text">Текст новости</label>
                     <textarea name="text" class="form-control" pattern=".{20,}" required
-                              minlength="20" id="text" rows="10"></textarea>
+                              minlength="20" id="text" rows="10" th:text="${news.text}"></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Сохранить</button>
             </form>

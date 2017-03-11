@@ -158,7 +158,7 @@ public class ControllerNews {
         return "adminka";
     }
 
-    @RequestMapping(value = {"/user"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/addUser"}, method = RequestMethod.POST)
     public String addUser(@RequestParam("name") String name,
                           @RequestParam("login") String login,
                           @RequestParam("email") String email,

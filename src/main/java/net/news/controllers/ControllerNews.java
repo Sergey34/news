@@ -46,6 +46,7 @@ public class ControllerNews {
         model.put("url", "/lenta");
         model.put("root", "root");
         model.put("currentPage", page);
+        model.put("login", userService.getLoginCurrentUser());
         return "newsList";
     }
 
@@ -53,7 +54,9 @@ public class ControllerNews {
     public String getNews(Map<String, Object> model) {
         Iterable<Menu> headings = service.findHeadings();
         model.put("menu", headings);
+        model.put("login", userService.getLoginCurrentUser());
         return "addNews";
+
     }
 
     @RequestMapping(value = "/addNews", method = RequestMethod.POST)
@@ -68,6 +71,7 @@ public class ControllerNews {
         }
         Iterable<Menu> headings = service.findHeadings();
         model.put("menu", headings);
+        model.put("login", userService.getLoginCurrentUser());
         return "addNews";
     }
 
@@ -75,6 +79,7 @@ public class ControllerNews {
     public String login(Map<String, Object> model) {
         Iterable<Menu> headings = service.findHeadings();
         model.put("menu", headings);
+        model.put("login", userService.getLoginCurrentUser());
         return "login";
     }
 
@@ -84,6 +89,7 @@ public class ControllerNews {
         Iterable<Menu> headings = service.findHeadings();
         model.put("news", news);
         model.put("menu", headings);
+        model.put("login", userService.getLoginCurrentUser());
         return "news";
     }
 
@@ -103,6 +109,7 @@ public class ControllerNews {
         model.put("count", countPage);
         model.put("url", "/heading/" + heading);
         model.put("currentPage", page);
+        model.put("login", userService.getLoginCurrentUser());
         return "newsList";
     }
 
@@ -122,6 +129,7 @@ public class ControllerNews {
         model.put("count", countPage);
         model.put("url", "/author/" + login);
         model.put("currentPage", page);
+        model.put("login", userService.getLoginCurrentUser());
         return "newsList";
     }
 
@@ -141,6 +149,7 @@ public class ControllerNews {
         model.put("count", countPage);
         model.put("url", "/date/" + dateStr);
         model.put("currentPage", page);
+        model.put("login", userService.getLoginCurrentUser());
         return "newsList";
     }
 
@@ -155,6 +164,7 @@ public class ControllerNews {
         model.put("roles", roles);
         model.put("users", users);
         model.put("sort", "asc".equals(sort) ? "desc" : "asc");
+        model.put("login", userService.getLoginCurrentUser());
         return "adminka";
     }
 
@@ -174,19 +184,21 @@ public class ControllerNews {
         model.put("menu", headings);
         model.put("users", users);
         model.put("sort", "asc");
+        model.put("login", userService.getLoginCurrentUser());
         return "adminka";
     }
 
 
     @RequestMapping(value = {"/user/{login}", "/user"}, method = RequestMethod.GET)
-    public String user(@PathVariable(value = "user", required = false) String user,
+    public String user(@PathVariable(value = "login", required = false) String login,
                        Map<String, Object> model) {
         Iterable<Menu> headings = service.findHeadings();
-        UserDto userDto = userService.getUser(user);
+        UserDto userDto = userService.getUser(login);
         List<Role> roles = userService.getAllRoles();
         model.put("menu", headings);
         model.put("roles", roles);
-        model.put("users", userDto);
+        model.put("user", userDto);
+        model.put("login", userService.getLoginCurrentUser());
         return "user";
     }
 

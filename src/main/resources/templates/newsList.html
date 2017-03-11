@@ -35,7 +35,9 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav" id="navbar-nav">
-                <li><a href="/about.html" id="about">About</a></li>
+                <li><a th:if="${login==null}" href="/login">Login</a></li>
+                <li><a th:if="${login!=null}" th:href="'/user/' + ${login}" th:text="${login}">username</a></li>
+                <li><a th:if="${login!=null}" href="/logout">Logout</a></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->

@@ -78,7 +78,9 @@
                     <div class="thumbnail">
                         <div class="caption">
                             <h4><a th:if="${isAdmin}" class="list-group-item pull-right"
-                                   th:href="${'/delete/' + news.id}">Удалить новость</a></h4>
+                                   th:href="${'/delete/' + news.id}">Удалить новость</a>
+                                <a th:if="${isAdmin}" class="list-group-item pull-right"
+                                   th:href="${'/edit/' + news.id}">Редактировать новость</a></h4>
                             <h1 th:text="${news.title}">Title</h1>
                         </div>
                         <div class="caption">

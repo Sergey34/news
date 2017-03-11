@@ -5,6 +5,7 @@ import net.news.dao.DaoHeading;
 import net.news.dao.DaoNews;
 import net.news.domain.news.Heading;
 import net.news.domain.news.News;
+import net.news.domain.users.User;
 import net.news.dto.Menu;
 import net.news.dto.NewsDto;
 import net.news.service.converters.ConverterNews;
@@ -141,5 +142,15 @@ public class NewsService {
 
     public void delete(long id) {
         dao.delete(id);
+    }
+
+    public News getNewsById(long id) {
+        return dao.findOne(id);
+    }
+
+    public boolean userIsAuthor(long id) {
+        News news = dao.findOne(id);
+        User currentUser = userService.getCurrentUser();
+        return news.getAuthor().equals(currentUser);
     }
 }

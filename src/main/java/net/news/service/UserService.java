@@ -29,6 +29,7 @@ public class UserService {
         this.daoUser = daoUser;
         this.daoRole = daoRole;
         this.converter = converter;
+
     }
 
     public UserDto findUserByLogin(String login) {
@@ -118,6 +119,7 @@ public class UserService {
         }
         return false;
     }
+
 
     public boolean currentUserIsAdmin() {
         User currentUser = getCurrentUser();

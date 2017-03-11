@@ -91,7 +91,7 @@ public class ControllerNews {
         Iterable<Menu> headings = service.findHeadings();
         model.put("news", news);
         model.put("menu", headings);
-        model.put("isAdmin", userService.currentUserIsAdmin());
+        model.put("isAdmin", userService.currentUserIsAdmin() || service.userIsAuthor(id));
         model.put("login", userService.getLoginCurrentUser());
         return "news";
     }

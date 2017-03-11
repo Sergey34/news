@@ -86,5 +86,15 @@ public class UserService {
     public List<Role> getAllRoles() {
         return daoRole.findAll();
     }
+
+    public UserDto getUser(String user) {
+        User currentUser;
+        if (user == null) {
+            currentUser = getCurrentUser();
+        } else {
+            currentUser = daoUser.findOneByLogin(user);
+        }
+        return converter.userToUserDto(currentUser);
+    }
 }
 

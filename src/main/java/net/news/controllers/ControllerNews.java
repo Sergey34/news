@@ -178,4 +178,18 @@ public class ControllerNews {
     }
 
 
+    @RequestMapping(value = {"/user/{login}", "/user"}, method = RequestMethod.GET)
+    public String user(@PathVariable(value = "user", required = false) String user,
+                       Map<String, Object> model) {
+
+
+        Iterable<Menu> headings = service.findHeadings();
+        UserDto userDto = userService.getUser(user);
+        List<Role> roles = userService.getAllRoles();
+        model.put("menu", headings);
+        model.put("roles", roles);
+        model.put("users", userDto);
+        return "user";
+    }
+
 }

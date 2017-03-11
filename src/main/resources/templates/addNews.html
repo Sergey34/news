@@ -72,11 +72,13 @@
             <form th:action="@{/addNews}" method="post">
                 <div class="form-group">
                     <label for="TitleNews">Заголовок новости</label>
-                    <input name="title" type="text" class="form-control" minlength="5" id="TitleNews">
+                    <input name="title" type="text" class="form-control" pattern=".{5,}" required
+                           minlength="5" id="TitleNews">
                 </div>
                 <div class="form-group">
                     <label for="anons">Анонс</label>
-                    <textarea name="anons" class="form-control" maxlength="250" minlength="20" id="anons"
+                    <textarea name="anons" class="form-control" maxlength="250" pattern=".{20,}" required
+                              minlength="20" id="anons"
                               rows="3"></textarea>
                 </div>
                 <div class="form-group">
@@ -88,7 +90,8 @@
                 </div>
                 <div class="form-group">
                     <label for="text">Текст новости</label>
-                    <textarea name="text" class="form-control" id="text" rows="10"></textarea>
+                    <textarea name="text" class="form-control" pattern=".{20,}" required
+                              minlength="20" id="text" rows="10"></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>

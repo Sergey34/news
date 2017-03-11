@@ -10,6 +10,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 public class UserService {
     private final DaoUser daoUser;
@@ -32,4 +34,11 @@ public class UserService {
         return daoUser.findOneByLogin(authentication.getName());
     }
 
+    public void updateLastDateVisit() {
+        User currentUser = getCurrentUser();
+        if (currentUser != null) {
+            currentUser.setLastVisit(new Date());
+            daoUser.save(currentUser);
+        }
+    }
 }

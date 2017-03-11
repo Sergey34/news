@@ -34,7 +34,7 @@ public class Application {
                     .antMatchers("/**", "/").permitAll().anyRequest()
                     .fullyAuthenticated().and().formLogin().loginPage("/login")
                     .failureUrl("/login?error").permitAll()
-                    .defaultSuccessUrl("/user")
+                    .defaultSuccessUrl("/")
                     .and()
                     .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login")
                     .permitAll();

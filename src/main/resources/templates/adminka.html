@@ -96,6 +96,7 @@
                                         Последний визит</a></th>
                                 <th>Права</th>
                                 <th>Email</th>
+                                <th>edit</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -112,6 +113,8 @@
                                     </ul>
                                 </td>
                                 <td th:text="${user.email}">email</td>
+                                <td><a th:href="'/user/' + ${user.login}" class="btn  btn-lg"><span
+                                        class="glyphicon glyphicon-pencil"></span></a></td>
                             </tr>
 
                             </tbody>

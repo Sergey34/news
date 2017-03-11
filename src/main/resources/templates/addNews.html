@@ -72,9 +72,9 @@
         </div>
         <div class="col-md-9">
 
-            <div th:if="${error!=null}" th:text="${error}" class="alert alert-error">
+            <div th:if="${error!=null}" th:text="${error}" class="alert alert-danger">
             </div>
-            <div th:if="${completed!=null}" th:text="${completed}" class="alert alert-error">
+            <div th:if="${completed!=null}" th:text="${completed}" class="alert alert-success">
             </div>
             <form th:action="@{/addNews}" method="post">
                 <div class="form-group">

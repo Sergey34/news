@@ -76,8 +76,7 @@
             <div class="row">
                 <div class="col-sm-12 col-lg-12 col-md-12">
                     <form class="form-horizontal" th:action="@{/login}" action="/login" method="POST">
-                        <p th:if="${param.logout}" class="alert">You have been logged out</p>
-                        <p th:if="${param.error}" class="alert alert-error">There was an error, please try again</p>
+                        <p th:if="${param.error}" class="alert alert-danger">There was an error, please try again</p>
                         <div class="form-group">
                             <label for="inputLogin" class="col-xs-2 control-label">Логин:</label>
                             <div class="col-xs-10">

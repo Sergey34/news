@@ -102,7 +102,7 @@ public class NewsService {
     }
 
     public boolean saveNews(String title, String anons, String text, List<String> headingNameList) {
-        if (headingNameList.size() == 0) {
+        if (headingNameList == null || headingNameList.size() == 0) {
             return false;
         }
         News news = News.builder()

@@ -63,7 +63,7 @@ public class ControllerNews {
     public String addNews(@RequestParam("title") String title,
                           @RequestParam("anons") String anons,
                           @RequestParam("text") String text,
-                          @RequestParam("headings") List<String> headingNameList,
+                          @RequestParam(value = "headings", required = false) List<String> headingNameList,
                           Map<String, Object> model) {
         boolean saved = service.saveNews(title, anons, text, headingNameList);
         if (!saved) {

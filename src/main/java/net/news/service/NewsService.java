@@ -130,9 +130,7 @@ public class NewsService {
     }
 
     public List<NewsDto> findAll(int page) {
-        List<News> all = dao.findAll(new PageRequest(page, size)).getContent();
-//        List<News> all = (List<News>) dao.findAll();
-        return converterNews.newsToNewsDto(all);
+        return converterNews.newsToNewsDto(dao.findAll(new PageRequest(page, size)).getContent());
     }
 
     public long count() {

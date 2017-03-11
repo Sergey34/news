@@ -74,7 +74,49 @@
         <div class="col-md-9">
             <div class="row">
                 <div class="col-sm-12 col-lg-12 col-md-12">
+                    <div class="panel panel-default">
+                        <!-- Default panel contents -->
+                        <div class="panel-heading">Panel heading</div>
+                        <div class="panel-body">
+                            <p>...</p>
+                        </div>
 
+                        <!-- Table -->
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th><a th:href="${sort!=null} ? '/adminka/name/'+${sort} : '/adminka/name/asc'">
+                                    Имя</a></th>
+                                <th><a th:href="${sort!=null} ? '/adminka/login/'+${sort} : '/adminka/login/asc'">
+                                    Логин</a>
+                                </th>
+                                <th>
+                                    <a th:href="${sort!=null} ? '/adminka/lastVisit/'+${sort} : '/adminka/lastVisit/asc'">
+                                        Последний визит</a></th>
+                                <th>Права</th>
+                                <th>Email</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="user , iterationStatus: ${users}">
+                                <td th:text="${iterationStatus.count}">1</td>
+                                <td th:text="${user.name}">name</td>
+                                <td th:text="${user.login}">login</td>
+                                <td th:text="${user.lastVisit}">lastVisit</td>
+                                <td>
+                                    <ul class="list-group">
+                                        <li th:each="role , iterationStatus: ${user.roles}" th:text="${role.authority}">
+                                            role
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td th:text="${user.email}">email</td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

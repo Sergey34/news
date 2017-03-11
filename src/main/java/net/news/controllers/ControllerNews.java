@@ -2,7 +2,9 @@ package net.news.controllers;
 
 import net.news.dto.Menu;
 import net.news.dto.NewsDto;
+import net.news.dto.UserDto;
 import net.news.service.NewsService;
+import net.news.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,10 +18,12 @@ import java.util.Map;
 @Controller
 public class ControllerNews {
     private final NewsService service;
+    private final UserService userService;
 
     @Autowired
-    public ControllerNews(NewsService service) {
+    public ControllerNews(NewsService service, UserService userService) {
         this.service = service;
+        this.userService = userService;
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
@@ -117,7 +121,6 @@ public class ControllerNews {
         return "newsList";
     }
 
-
     @RequestMapping(value = {"/date/{date}", "/date/{date}/{page}"}, method = RequestMethod.GET)
     public String getNewsByDate(@PathVariable("date") String dateStr,
                                 @PathVariable(value = "page", required = false) Integer page,
@@ -135,6 +138,20 @@ public class ControllerNews {
         model.put("url", "/date/" + dateStr);
         model.put("currentPage", page);
         return "newsList";
-
     }
+
+    @RequestMapping(value = {"/adminka", "/adminka/{column}/{sort}"}, method = RequestMethod.GET)
+    public String getNewsByDate(@PathVariable(value = "column", required = false) String column,
+                                @PathVariable(value = "sort", required = false) String sort,
+                                Map<String, Object> model) {
+        String currentSort = sort == null ? "" : "asc".equals(sort) ? "↑" : "↓";
+        Iterable<Menu> headings = service.findHeadings();
+        List<UserDto> users = userService.gitAllUsers(column, sort);
+        model.put("menu", headings);
+        model.put("users", users);
+        model.put("sort", "asc".equals(sort) ? "desc" : "asc");
+        return "adminka";
+    }
+
+
 }

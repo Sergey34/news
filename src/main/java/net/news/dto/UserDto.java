@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import net.news.domain.users.Role;
 
+import java.util.Date;
 import java.util.Set;
 
 @Data
@@ -17,4 +18,5 @@ public class UserDto {
     private String name;
     private String email;
     private Set<Role> roles;
+    private Date lastVisit;
 }

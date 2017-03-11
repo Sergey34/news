@@ -39,6 +39,7 @@ public class ControllerNews {
         model.put("laquo", page - 1);
         model.put("count", countPage);
         model.put("url", "/lenta");
+        model.put("root", "root");
         model.put("currentPage", page);
         return "newsList";
     }

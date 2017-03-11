@@ -49,7 +49,7 @@
         <div class="col-md-3" id="list_menu">
             <p class="lead">Навигация</p>
             <div class="list-group">
-                <a class="list-group-item" href="/adminka/addNews">Добавить новость</a>
+                <a class="list-group-item" href="/addNews">Добавить новость</a>
                 <a class="list-group-item" href="/adminka">Админка</a>
                 <form>
                     <div class="input-group">
@@ -75,6 +75,7 @@
                         пользователем</h4>
                     <h4 th:if="${heading!=null}" th:text="${'Новости из рубрики '+ heading}">Новости из рубрики</h4>
                     <h4 th:if="${date!=null}" th:text="${'Новости за '+ date}">Новости за </h4>
+                    <h4 th:if="${root!=null}">Лента новостей</h4>
                 </div>
             </div>
             <div class="row">

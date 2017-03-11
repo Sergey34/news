@@ -71,6 +71,11 @@
             </div>
         </div>
         <div class="col-md-9">
+
+            <div th:if="${error!=null}" th:text="${error}" class="alert alert-error">
+            </div>
+            <div th:if="${completed!=null}" th:text="${completed}" class="alert alert-error">
+            </div>
             <form th:action="@{/addNews}" method="post">
                 <div class="form-group">
                     <label for="TitleNews">Заголовок новости</label>

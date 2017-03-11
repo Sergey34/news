@@ -68,6 +68,8 @@ public class ControllerNews {
         boolean saved = service.saveNews(title, anons, text, headingNameList);
         if (!saved) {
             model.put("error", "Новость не добавлена");
+        } else {
+            model.put("completed", "Успешно");
         }
         Iterable<Menu> headings = service.findHeadings();
         model.put("menu", headings);
@@ -178,6 +180,8 @@ public class ControllerNews {
         boolean saved = userService.addUser(login, name, pass, rolesName, email);
         if (!saved) {
             model.put("error", "Пользователь с таким логином уже существует.");
+        } else {
+            model.put("completed", "Успешно");
         }
         Iterable<Menu> headings = service.findHeadings();
         List<UserDto> users = userService.gitAllUsers(null, null);
@@ -199,6 +203,8 @@ public class ControllerNews {
         boolean saved = userService.update(login, name, pass, rolesName, email, passOld);
         if (!saved) {
             model.put("error", "Неверный пароль или логин уже занят");
+        } else {
+            model.put("completed", "Успешно");
         }
         Iterable<Menu> headings = service.findHeadings();
         UserDto userDto = userService.getUser(login);

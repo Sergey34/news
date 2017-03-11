@@ -3,6 +3,7 @@ package net.news.service;
 import lombok.extern.slf4j.Slf4j;
 import net.news.dao.DaoHeading;
 import net.news.dao.DaoNews;
+import net.news.domain.news.Heading;
 import net.news.domain.news.News;
 import net.news.dto.Menu;
 import net.news.dto.NewsDto;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.PostConstruct;
 import java.text.ParseException;
@@ -26,15 +28,17 @@ public class NewsService {
     private final DaoHeading daoHeading;
     private final ConverterNews converterNews;
     private final ApplicationContext context;
+    private final UserService userService;
     @Value("${cursor.size}")
     private int size;
 
     @Autowired
-    public NewsService(DaoNews dao, DaoHeading daoHeading, ConverterNews converterNews, ApplicationContext context) {
+    public NewsService(DaoNews dao, DaoHeading daoHeading, ConverterNews converterNews, ApplicationContext context, UserService userService) {
         this.dao = dao;
         this.daoHeading = daoHeading;
         this.converterNews = converterNews;
         this.context = context;
+        this.userService = userService;
     }
 
     public NewsDto findById(long id) {
@@ -98,7 +102,40 @@ public class NewsService {
         return calculateCountPages(dao.countByHeading_name(heading));
     }
 
-    public void saveNews(String title, String anons, String text, List<String> headingNameList) {
+    public boolean saveNews(String title, String anons, String text, List<String> headingNameList) {
+        if (StringUtils.isEmpty(title) || StringUtils.isEmpty(anons) || StringUtils.isEmpty(text) || headingNameList.size() == 0) {
+            return false;
+        }
+        News news = News.builder()
+                .title(title)
+                .anons(anons)
+                .text(text)
+                .heading(gitHeadingsByName(headingNameList))
+                .date(new Date())
+                .author(userService.getCurrentUser()).build();
+        dao.save(news);
+        return true;
+    }
 
+
+    private List<Heading> gitHeadingsByName(List<String> headingNameList) {
+        List<Heading> headings = new ArrayList<>(headingNameList.size());
+        for (String headingName : headingNameList) {
+            Heading heading = daoHeading.findOneByName(headingName);
+            if (heading != null) {
+                headings.add(heading);
+            }
+        }
+        return headings;
+    }
+
+    public List<NewsDto> findAll(int page) {
+        List<News> all = dao.findAll(new PageRequest(page, size)).getContent();
+//        List<News> all = (List<News>) dao.findAll();
+        return converterNews.newsToNewsDto(all);
+    }
+
+    public long count() {
+        return dao.count();
     }
 }

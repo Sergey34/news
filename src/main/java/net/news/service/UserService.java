@@ -2,9 +2,12 @@ package net.news.service;
 
 import net.news.dao.DaoRole;
 import net.news.dao.DaoUser;
+import net.news.domain.users.User;
 import net.news.dto.UserDto;
 import net.news.service.converters.ConverterUsers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,4 +26,10 @@ public class UserService {
     public UserDto findUserByLogin(String login) {
         return converter.UserToUserDto(daoUser.findOneByLogin(login));
     }
+
+    public User getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return daoUser.findOneByLogin(authentication.getName());
+    }
+
 }

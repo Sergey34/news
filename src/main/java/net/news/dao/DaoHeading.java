@@ -8,4 +8,6 @@ import java.util.List;
 public interface DaoHeading extends CrudRepository<Heading, Long> {
     @Override
     List<Heading> findAll();
+
+    Heading findOneByName(String headingName);
 }

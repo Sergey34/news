@@ -22,6 +22,27 @@ public class ControllerNews {
         this.service = service;
     }
 
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String root(Map<String, Object> model) {
+        return "redirect:/lenta";
+    }
+
+    @RequestMapping(value = {"/lenta/{page}", "/lenta"}, method = RequestMethod.GET)
+    public String getAllNews(@PathVariable(value = "page", required = false) Integer page, Map<String, Object> model) {
+        page = page == null ? 1 : page;
+        Iterable<Menu> headings = service.findHeadings();
+        List<NewsDto> news = service.findAll(page - 1);
+        long countPage = service.count();
+        model.put("menu", headings);
+        model.put("newsList", news);
+        model.put("raquo", page + 1);
+        model.put("laquo", page - 1);
+        model.put("count", countPage);
+        model.put("url", "/lenta");
+        model.put("currentPage", page);
+        return "newsList";
+    }
+
     @RequestMapping(value = "/addNews", method = RequestMethod.GET)
     public String getNews(Map<String, Object> model) {
         Iterable<Menu> headings = service.findHeadings();

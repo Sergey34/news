@@ -89,7 +89,7 @@ public class NewsService {
         return calculateCountPages(dao.countByDateBetween(startDate, stopDate));
     }
 
-    private int calculateCountPages(int count) {
+    private int calculateCountPages(long count) {
         return (int) Math.ceil(count * 1.0 / size);
     }
 
@@ -136,6 +136,6 @@ public class NewsService {
     }
 
     public long count() {
-        return dao.count();
+        return calculateCountPages(dao.count());
     }
 }

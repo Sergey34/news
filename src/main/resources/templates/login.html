@@ -78,7 +78,7 @@
                         <p th:if="${param.logout}" class="alert">You have been logged out</p>
                         <p th:if="${param.error}" class="alert alert-error">There was an error, please try again</p>
                         <div class="form-group">
-                            <label for="inputLogin" class="col-xs-2 control-label">Адрес email:</label>
+                            <label for="inputLogin" class="col-xs-2 control-label">Логин:</label>
                             <div class="col-xs-10">
                                 <input type="text" name="username" class="form-control" id="inputLogin"
                                        placeholder="Введите логин">
@@ -89,13 +89,6 @@
                             <div class="col-xs-10">
                                 <input type="password" name="password" class="form-control" id="inputPassword"
                                        placeholder="Введите пароль">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-xs-offset-2 col-xs-10">
-                                <div class="checkbox">
-                                    <label><input name="rememberme" type="checkbox">Запомнить</label>
-                                </div>
                             </div>
                         </div>
                         <div class="form-group">

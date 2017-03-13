@@ -1,5 +1,6 @@
 package net.news.dao;
 
+import net.news.domain.Projected;
 import net.news.domain.news.News;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -31,4 +32,6 @@ public interface DaoNews extends CrudRepository<News, Long>, PagingAndSortingRep
     Page<News> findAll(Pageable pageable);
 
     News findOneById(long id);
+
+    List<Projected> findAuthorBy();
 }

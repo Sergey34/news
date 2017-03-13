@@ -4,6 +4,7 @@ import net.news.dao.DaoHeading;
 import net.news.dao.DaoNews;
 import net.news.dao.DaoRole;
 import net.news.dao.DaoUser;
+import net.news.domain.Projected;
 import net.news.domain.news.Heading;
 import net.news.domain.news.News;
 import net.news.domain.users.Role;
@@ -43,6 +44,9 @@ public class TmpConfig {
     public void init() {
         initUsers();
         initNews();
+
+        List<Projected> user = dao.findAuthorBy();
+        System.out.println(user);
 
     }
 

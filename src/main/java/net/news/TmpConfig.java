@@ -4,11 +4,16 @@ import net.news.dao.DaoHeading;
 import net.news.dao.DaoNews;
 import net.news.dao.DaoRole;
 import net.news.dao.DaoUser;
-import net.news.domain.Projected;
+import net.news.dao.test.DaoContact;
+import net.news.dao.test.DaoEmployee;
+import net.news.dao.test.DaoUserTest;
 import net.news.domain.news.Heading;
 import net.news.domain.news.News;
 import net.news.domain.users.Role;
 import net.news.domain.users.User;
+import net.news.domain.users.test.Contact;
+import net.news.domain.users.test.Employee;
+import net.news.domain.users.test.UserNew;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -30,24 +35,49 @@ public class TmpConfig {
     private final DaoRole daoRole;
     private final DaoNews dao;
     private final DaoHeading daoHeading;
-
+    private final DaoUserTest daoUserTest;
+    private final DaoContact daoContact;
+    private final DaoEmployee daoEmployee;
     @Autowired
-    public TmpConfig(DaoUser daoUser, DaoRole daoRole, DaoNews dao, DaoHeading daoHeading) {
+    public TmpConfig(DaoUser daoUser, DaoRole daoRole, DaoNews dao, DaoHeading daoHeading, DaoUserTest daoUserTest, DaoContact daoContact, DaoEmployee daoEmployee) {
         this.daoUser = daoUser;
         this.daoRole = daoRole;
         this.dao = dao;
         this.daoHeading = daoHeading;
+        this.daoUserTest = daoUserTest;
+        this.daoContact = daoContact;
+        this.daoEmployee = daoEmployee;
     }
-
 
     @PostConstruct
     public void init() {
         initUsers();
         initNews();
 
-        List<Projected> user = dao.findAuthorBy();
-        System.out.println(user);
+        testHierarh();
 
+    }
+
+    private void testHierarh() {
+        Contact contact = new Contact();
+        contact.setPhoneNumber("231");
+        contact.setLogin("qweqweq");
+        contact.setPassword("1231231");
+        contact.setRoles(new HashSet<>(Arrays.asList(roles.get("USER"))));
+        daoUserTest.save(contact);
+        Employee employee = new Employee();
+        employee.setNameParent("qwe");
+        employee.setLogin("qweqwgfdeq");
+        employee.setPassword("1231231");
+        employee.setRoles(new HashSet<>(Arrays.asList(roles.get("USER"))));
+        daoUserTest.save(employee);
+        Iterable<UserNew> all = daoUserTest.findAll();
+        System.out.println(all);
+
+        Iterable<Contact> contactAll = daoContact.findAll();
+        System.out.println(contactAll);
+        Iterable<Employee> employeeAll = daoEmployee.findAll();
+        System.out.println(employeeAll);
     }
 
     private void initUsers() {
@@ -73,6 +103,8 @@ public class TmpConfig {
 
         Iterable<User> all = daoUser.findAll();
         System.out.println(all);
+
+
     }
 
     private void initNews() {

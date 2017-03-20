@@ -73,6 +73,8 @@ public class TmpConfig {
         daoUserTest.save(employee);
         Iterable<UserNew> all = daoUserTest.findAll();
         System.out.println(all);
+        UserNew user = daoUserTest.findOneByLogin("qweqweq");
+        System.out.println(user);
 
         Iterable<Contact> contactAll = daoContact.findAll();
         System.out.println(contactAll);

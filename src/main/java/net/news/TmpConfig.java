@@ -63,6 +63,11 @@ public class TmpConfig {
         contact.setPhoneNumber("231");
         contact.setLogin("qweqweq");
         contact.setPassword("1231231");
+        Contact.Parent parent = new Contact.Parent();
+        parent.setName("qwedsda");
+        Contact.Parent parent2 = new Contact.Parent();
+        parent2.setName("qwedsda222");
+        contact.setParents(Arrays.asList(parent, parent2));
         contact.setRoles(new HashSet<>(Arrays.asList(roles.get("USER"))));
         daoUserTest.save(contact);
         Employee employee = new Employee();

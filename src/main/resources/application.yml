@@ -20,7 +20,5 @@ logging:
 server:
   address: 78.155.206.56
   port: 80
-spring:
-    profiles: production
 cursor:
   size: 10

@@ -29,6 +29,9 @@ public class TmpConfig {
     private final DaoRole daoRole;
     private final DaoNews dao;
     private final DaoHeading daoHeading;
+    @Autowired
+    Test test;
+
 
     @Autowired
     public TmpConfig(DaoUser daoUser, DaoRole daoRole, DaoNews dao, DaoHeading daoHeading) {
@@ -38,11 +41,12 @@ public class TmpConfig {
         this.daoHeading = daoHeading;
     }
 
-
     @PostConstruct
     public void init() {
         initUsers();
         initNews();
+        test.findBySpecification();
+
 
     }
 

@@ -18,7 +18,6 @@ logging:
       hibernate:
         type: trace
 server:
-  address: 78.155.206.56
-  port: 8080
+  port: 8081
 cursor:
   size: 10

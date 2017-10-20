@@ -1,9 +1,6 @@
 package net.news;
 
-import net.news.dao.DaoHeading;
-import net.news.dao.DaoNews;
-import net.news.dao.DaoRole;
-import net.news.dao.DaoUser;
+import net.news.dao.*;
 import net.news.domain.news.Heading;
 import net.news.domain.news.News;
 import net.news.domain.users.Role;
@@ -41,13 +38,16 @@ public class TmpConfig {
         this.daoHeading = daoHeading;
     }
 
+    @Autowired
+    Dao daoNativ;
+
     @PostConstruct
     public void init() {
         initUsers();
         initNews();
         test.findBySpecification();
-
-
+        List<User> load = daoNativ.load("select * from User", new User(), new HashMap<>());
+        System.out.println(load);
     }
 
     private void initUsers() {

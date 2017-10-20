@@ -10,15 +10,19 @@ spring:
     show-sql: true
     properties:
       hibernate:
+        current_session_context_class: org.springframework.orm.hibernate4.SpringSessionContext
         show_sql: true
         format_sql: true
+    hibernate:
+      ddl-auto: update
+      use-new-id-generator-mappings: true
 logging:
   level:
     org:
       hibernate:
         type: trace
 server:
-  address: 78.155.206.56
   port: 8080
 cursor:
   size: 10
+

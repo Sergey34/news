@@ -46,7 +46,7 @@ public class TmpConfig {
         initUsers();
         initNews();
         test.findBySpecification();
-        List<User> load = daoNativ.load("select * from User", new User(), new HashMap<>());
+        List<User> load = daoNativ.load("select * from User", new User());
         System.out.println(load);
     }
 
